@@ -1,6 +1,6 @@
 <!DOCTYPE html> 
 <html lang="en">
-<head>
+<head> 
     <meta charset="utf-8">
     <title>Catalog</title>
     <link rel="stylesheet" href="CSS_Erronka.css" />
@@ -11,13 +11,12 @@
         <nav>
          <div class="nav">
             <a href="MAIN PAGE.html">
-               <img src="SECONDS AGO BG.png" height="125" width="125" alt="SecondsAgo logo"></a>
+            <img src="SECONDS AGO BG.png" height="125" width="125" alt="SecondsAgo logo"></a>
             <a href="LAST NEWS.html">LAST NEWS</a>
             <a href="CATALOG.html">CATALOG</a>
             <a href="COMPANY HISTORY.html">COMPANY HISTORY</a>
             <a href="MAIN PAGE.html">HOME</a>
             <a href="KATALOGOA.html">
-            <img src="Pais Vasco.png"  class="LOGO" height="80" width="80" alt="English logo"></a>
             <a href="LOG IN.html">LOG IN</a>
             <a href="SIGN UP.html">SIGN UP</a>
             <a href="ORDER FORM.html">ORDER FORM</a>

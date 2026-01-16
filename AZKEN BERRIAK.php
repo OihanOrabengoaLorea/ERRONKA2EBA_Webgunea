@@ -5,7 +5,7 @@
     <title>Azken berriak</title>
     <link rel="stylesheet" href="CSS_Erronka.css" />
     <link rel="icon" type="image/png" href="ARGAZKIAK/EJBE-BG.png"/>
-</head>
+</head> 
 <body>
     <header>
         <nav>
