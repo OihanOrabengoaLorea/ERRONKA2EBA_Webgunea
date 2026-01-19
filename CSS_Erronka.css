@@ -2,64 +2,79 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
-  color: #1d1d1f;
+  color: #1d3c34; /* Verde oscuro en lugar de negro puro */
   font-size: 15px;
   line-height: 1.58;
   background-size: cover;
   background-position: center;
+  background-color: #f8fbf9; /* Fondo verde muy claro */
 }
 
 header {
-  background-color: rgba(245, 245, 247, 0.8);
-  color: #000;
-  text-align: center; 
+  background-color: rgba(232, 245, 233, 0.95); /* Verde claro translúcido */
+  color: #1d3c34;
+  display: flex;
+  justify-content: center;
   position: sticky;
+  padding: 10px;
   top: 0; 
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 2px solid #4a9b7c; /* Borde verde */
   font-size: 10px;
+  backdrop-filter: blur(8px); /* Efecto glass */
 }
 
 .nav{
   display: flex; 
+  gap: 40px;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
   max-width: 100%;
 }
-.nav>a{
-  width: 500px;
-}
+
 .main {
   margin: 98px;
   line-height: 1.98;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(29, 60, 52, 0.08);
 }
 
 .testuArgazki1 {
   float: left;          
   margin: 8px 18px 8px 0;    
   height: auto;         
+  border: 3px solid #4a9b7c;
+  border-radius: 8px;
 }
 
 .testuArgazki2 {
   float: right;          
   margin: 8px 18px 8px 0;    
   height: auto;         
+  border: 3px solid #4a9b7c;
+  border-radius: 8px;
 }
 
 nav a {
-  color: #1d1d1f;
+  color: #1d3c34;
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
-  
+  font-weight: 600;
+  transition: all 0.3s ease;
+  padding: 6px 12px;
+  border-radius: 6px;
 }
 
 nav a:hover {
-  color: #06c;
+  color: white;
+  background-color: #4a9b7c; /* Verde medio */
+  transform: translateY(-2px);
 }
 
 img.LOGO {   
   border-radius: 50%;  
-  object-fit: cover;   
+  object-fit: cover;
+  border: 2px solid #4a9b7c;  
 }
 
 main {
@@ -69,14 +84,22 @@ main {
 
 main h1 {
   font-size: 46px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 18px;
+  color: #2a5c4a; /* Verde intermedio */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+main h3 {
+  color: #357a5c; /* Verde para subtítulos */
+  border-left: 4px solid #4a9b7c;
+  padding-left: 12px;
 }
 
 main p {
   font-size: 18px;
-  color: #6e6e73;
+  color: #3d5c50; /* Verde grisáceo */
   max-width: 598px;
   margin: 0 auto 38px;
 }
@@ -86,45 +109,61 @@ main img {
   margin: 38px auto;
   max-width: 100%;
   height: auto;
+  border-radius: 10px;
+  border: 2px solid #c8e6d0; /* Borde verde muy claro */
 }
 
 form {
-  background-color: #f5f5f7;
+  background-color: #e8f5e9; /* Fondo verde claro */
   padding: 28px;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(74, 155, 124, 0.15);
   width: 498px;
   margin: 0 auto;
   text-align: left;
+  border: 1px solid #c8e6d0;
 }
 
 label {
   display: block;
   font-weight: 600;
   margin-bottom: 3px;
-  color: #1d1d1f;
+  color: #2a5c4a;
 }
 
 input {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #d2d2d7;
+  padding: 10px;
+  border: 1px solid #a8d5ba;
   border-radius: 6px;
   margin-bottom: 13px;
   font-size: 14px;
+  background-color: #f8fbf9;
+  transition: border 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4a9b7c;
+  box-shadow: 0 0 0 2px rgba(74, 155, 124, 0.2);
 }
 
 button {
-  background-color: #0071e3;
-  color: #fff;
+  background-color: #4a9b7c; /* Verde principal */
+  color: white;
   border: none;
-  padding: 10px 16px;
+  padding: 12px 24px;
   border-radius: 6px;
-  font-weight: 600; 
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(74, 155, 124, 0.3);
 }
 
 button:hover {
-  background-color: #0077ed;
+  background-color: #357a5c; /* Verde más oscuro */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(74, 155, 124, 0.4);
 }
 
 figure {
@@ -132,7 +171,9 @@ figure {
   grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
   gap: 48px;
   padding: 38px;
-  background-color: #f5f5f7;
+  background-color: #e8f5e9;
+  border-radius: 12px;
+  border: 1px solid #c8e6d0;
 }
 
 .logo-empresa {
@@ -142,6 +183,10 @@ figure {
   max-height: 98px;
   object-fit: contain;
   transition: transform 0.3s ease;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #c8e6d0;
 }
 
 .logo-empresa:hover {
@@ -152,13 +197,15 @@ figure img {
   width: 298px;
   height: 248px;
   border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  background-color: #f8fbf9;
+  box-shadow: 0 2px 6px rgba(74, 155, 124, 0.1);
+  border: 2px solid #c8e6d0;
 }
 
 figure img:hover {
   transform: scale(1.05);
   transition: 0.3s ease;
+  box-shadow: 0 4px 12px rgba(74, 155, 124, 0.2);
 }
 
 .button {
@@ -172,30 +219,64 @@ figcaption {
   text-align: center;
   margin-top: 8px;
   font-size: 14px;
-  color: #000000;
+  color: #2a5c4a;
+  font-weight: 600;
 }   
 
 footer {
-  background-color: #f5f5f7;
-  color: #6e6e73;
+  background-color: #e8f5e9;
+  color: #3d5c50;
   padding: 38px 18px;
   text-align: center;
   font-size: 12px;
-  border-top: 1px solid rgba(0,0,0,0.1);
+  border-top: 2px solid #4a9b7c;
 }
 
+footer h3 {
+  color: #2a5c4a;
+  margin-bottom: 20px;
+}
 
 footer a {
-  color: rgb(67, 67, 67);
-  text-decoration: solid;
+  color: #357a5c;
   text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 footer a:hover {
   text-decoration: underline;
+  color: #2a5c4a;
+  transform: translateX(3px);
 }
 
 .mota{
   width: 18px;
   height: 18px;
+}
+
+/* Añado algunas mejoras visuales */
+.main h1 {
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.main h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(to right, #4a9b7c, #a8d5ba);
+  border-radius: 2px;
+}
+
+/* Estilos para la página de noticias específicamente */
+.main h3 {
+  margin-top: 30px;
+  padding: 10px;
+  background: linear-gradient(to right, #e8f5e9, #f8fbf9);
+  border-radius: 6px;
 }
