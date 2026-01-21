@@ -9,7 +9,7 @@
 <body> 
     <?php include 'HEADER.php'; ?>
     <div class="main">
-        <h1>AZKEN BERRIAK</h1>
+        <h1>AZKEN BERRIAK </h1>
         <h3>1. SecondsAgo-k errekor salmentak lortu ditu birgaitutako ekipoetan (2025eko urria)</h3>
         <p>Enpresak 10.000 ordenagailu eta eramangarri birgaituren salmenta gainditu du azken hiruhilekoan.
         Hazkunde honek teknologia jasangarri eta eskuragarrien eskaera gero eta handiagoa islatzen du. Zuzendari nagusiak, Iker Mendizabalek, 
