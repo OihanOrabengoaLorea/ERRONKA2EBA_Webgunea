@@ -6,10 +6,10 @@
             <a href="AZKEN BERRIAK.php">BERRIAK</a>
             <a href="KATALOGOA.php">KATALOGOA</a>
             <a href="ENPRESAREN HISTORIA.php">HISTORIOA</a>
-            <a href="SARRERA.php">SARRERA</a>
             <a href="HASI SAIOA.php">HASI SAIOA</a>
             <a href="IZENA EMAN.php">IZENA EMAN</a>
             <a href="ESKAERA-ORRI.php">ESKAERA-ORRI</a>
+            <a href="HEADER-ENG.php">INGELESA</a>
         </div>
         </nav>
 </header>

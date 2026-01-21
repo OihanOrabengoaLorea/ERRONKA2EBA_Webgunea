@@ -22,7 +22,7 @@ header {
   font-size: 10px;
   backdrop-filter: blur(8px); /* Efecto glass */
 }
-
+ 
 .nav{
   display: flex; 
   gap: 40px;
