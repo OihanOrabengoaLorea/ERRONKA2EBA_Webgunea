@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Enpresaren historia</title>
     <link rel="stylesheet" href="CSS_Erronka.css" />
-    <link rel="icon" type="image/png" href="SECONDS AGO LOGO.png"/>
+    <link rel="icon" type="image/png" href="ARGAZKIAK/EJBE-BG.png"/>
 </head>
 <body>
     <?php include 'HEADER.php'; ?>
