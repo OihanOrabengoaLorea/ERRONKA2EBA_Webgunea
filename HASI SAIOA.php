@@ -11,12 +11,12 @@
 <main>
     <form action="#" method="post">
          <div>
-                <label for="posta elektronikoa">Posta elektronikoa</label>
-                <input type="email" id="posta_elektronikoa" placeholder="example@gmail.com" required>
+                <label class="login" for="posta elektronikoa">Posta elektronikoa</label>
+                <input class="input_login" type="email" id="posta_elektronikoa" placeholder="example@gmail.com" required>
          </div>
            <div>
-                <label for="pasahitza">Pasahitza</label>
-                <input type="password" name="pasahitza" id="pasahitza" required>
+                <label class="login" for="pasahitza">Pasahitza</label>
+                <input class="input_login" type="password" name="pasahitza" id="pasahitza" required>
             </div>
             <div>
                 <button type="reset">Ezabatu</button>
