@@ -58,6 +58,9 @@ include_once "HEADER.php";//HEADER.php fitxategia hemen egongo balitz bezela
       $stmt = $pdo->query("SELECT * FROM produktuak ORDER BY izena $ordena");//produktu guztiak imprimatuko dira aukeratutako ordenarekin
     }else if($_GET["aukera"] == "guztiak" && $_GET["bilaketa"] == ""){//aukera name-a daukan inputak guztiak itzultzen badu eta bilaketa name-a daukan inputak hutsa itzuliz gero
       $stmt = $pdo->query("SELECT * FROM produktuak ORDER BY izena $ordena");//produktu guztiak imprimatuko dira aukeratutako ordenarekin
+    }else if(!empty($_GET["aukera"]) && $_GET["aukera"] != "guztiak" && empty($_GET["bilaketa"])) {//aukera name-a daukan select-a itzultzen duena hutsik ez badago eta balioa guztiak ez bada eta bilaketa ez badu ezer itzultzen
+    $aukera = $_GET["aukera"];//aukera aldagaiean aukera name-a daukan option-aren get balioa gordeko da
+    $stmt = $pdo->query("SELECT * FROM produktuak WHERE mota = '$aukera' ORDER BY izena $ordena");
     }else if(!empty($_GET["bilaketa"])){//bilaketa name-a daukan inputa get bidez bidaltzen duena hutsik ez badago
       $bilaketa = $_GET["bilaketa"];//bilaketa aldagaiaren barnean get bidez lortutako bilaketa inputaren balioa jaso
 
@@ -69,6 +72,9 @@ include_once "HEADER.php";//HEADER.php fitxategia hemen egongo balitz bezela
     }
 }
 
+    if (!isset($stmt) || $stmt === false) {
+      $stmt = [];
+    }
     foreach ($stmt as $row){//datu baseko kontsultatik ateratzen den lerro bakoitzaren datuak $row-en gordetzen da
         echo "<div>";//produktuaren div-a
         echo "<img src='" . "./ARGAZKIAK/" . $row["irudia"] . "'/>";//produktuaren argazkia ipintzen du baldin eta datu basean irudia zutabean eta argazkiak karpetan dauden irudien izenak berdinak diren
