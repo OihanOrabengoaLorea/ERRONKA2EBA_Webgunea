@@ -1,6 +1,6 @@
 <?php
-include_once "db.php";
-include_once "HEADER.php";
+include_once "db.php";//db.php fitxategia hemen egongo balitz bezela
+include_once "HEADER.php";//HEADER.php fitxategia hemen egongo balitz bezela
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,24 +48,24 @@ include_once "HEADER.php";
     <div class="container">
     <?php
 
-    if(isset($_GET["ordena"]) && $_GET["ordena"] === "desc"){
-      $ordena =  "desc";
-    }else{
-      $ordena = "asc";
+    if(isset($_GET["ordena"]) && $_GET["ordena"] === "desc"){//ordena name-a daukan input eta selectetatik zerbait jasotzen bada eta jasotakoa desc bada
+      $ordena =  "desc";//ordena aldagaiean desc gordeko da
+    }else{//bestela
+      $ordena = "asc";//ordena aldagaiean asc gordeko da
     }
     
-    if (!isset($_GET["aukera"]) && !isset($_GET["bilaketa"])){
-       $stmt = $pdo->query("SELECT * FROM produktuak ORDER BY izena $ordena");
-    }else if($_GET["aukera"] == "guztiak" && $_GET["bilaketa"] == ""){
-      $stmt = $pdo->query("SELECT * FROM produktuak ORDER BY izena $ordena");
-    }else if(!empty($_GET["bilaketa"])){
-      $bilaketa = $_GET["bilaketa"];
+    if (!isset($_GET["aukera"]) && !isset($_GET["bilaketa"])){//aukera eta bilaketa name-ak dauzkaten inputetatik ez bada ezer jasotzen
+      $stmt = $pdo->query("SELECT * FROM produktuak ORDER BY izena $ordena");//produktu guztiak imprimatuko dira aukeratutako ordenarekin
+    }else if($_GET["aukera"] == "guztiak" && $_GET["bilaketa"] == ""){//aukera name-a daukan inputak guztiak itzultzen badu eta bilaketa name-a daukan inputak hutsa itzuliz gero
+      $stmt = $pdo->query("SELECT * FROM produktuak ORDER BY izena $ordena");//produktu guztiak imprimatuko dira aukeratutako ordenarekin
+    }else if(!empty($_GET["bilaketa"])){//bilaketa name-a daukan inputa get bidez bidaltzen duena hutsik ez badago
+      $bilaketa = $_GET["bilaketa"];//bilaketa aldagaiaren barnean get bidez lortutako bilaketa inputaren balioa jaso
 
-    if(!empty($_GET["aukera"]) && $_GET["aukera"] != "guztiak"){
-    $aukera = $_GET["aukera"];
-    $stmt = $pdo->query("SELECT * FROM produktuak WHERE mota = '$aukera' AND izena LIKE '%$bilaketa%' ORDER BY izena $ordena");
-    }else{
-    $stmt = $pdo->query("SELECT * FROM produktuak WHERE izena LIKE '%$bilaketa%' ORDER BY izena $ordena");
+    if(!empty($_GET["aukera"]) && $_GET["aukera"] != "guztiak"){//aukera name-a daukan select-ean get bidez lortutakoa hutsik ez badago eta balioa guztiak ez den bitartean
+    $aukera = $_GET["aukera"];//aukera aldagaiaren barruan get bidez aukera name-a daukan selectetik lortutako option-a gordetzen da
+    $stmt = $pdo->query("SELECT * FROM produktuak WHERE mota = '$aukera' AND izena LIKE '%$bilaketa%' ORDER BY izena $ordena");//aukeratutako optioneko motatako produktuak imprimatuko dira bilaketan sartutakoarekin koinziditzen duten bitartean, eta izenagatik ordenatuta daude
+    }else{//bestela
+    $stmt = $pdo->query("SELECT * FROM produktuak WHERE izena LIKE '%$bilaketa%' ORDER BY izena $ordena");//bilaketan sartutakoa daukaten produktuen izenak bakarrik agertuko dira, izenagatik ordenatuta
     }
 }
 
@@ -79,6 +79,6 @@ include_once "HEADER.php";
     }
     ?>
     </div>
-    <?php include_once 'FOOTER.php'; ?>
+    <?php include_once 'FOOTER.php'; ?> <!-- FOOTER.php fitxategia hemen egongo balitz bezela -->
   </body>
 </html>
