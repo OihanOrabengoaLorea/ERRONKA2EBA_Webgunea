@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="CSS_Erronka.css" />
     <link rel="icon" type="image/png" href="ARGAZKIAK/EJBE-BG.png"/>
 </head> 
-<body> 
+<body>
     <?php include 'HEADER.php'; ?>
     <div class="main">
         <h1>AZKEN BERRIAK</h1>

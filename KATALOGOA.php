@@ -8,7 +8,7 @@ include_once "HEADER.php";
     <meta charset="utf-8">
     <title>Katalogoa</title>
     <link rel="stylesheet" href="CSS_Erronka.css" />
-    <link rel="icon" type="image/png" href="SECONDS AGO LOGO.png"/>
+    <link rel="icon" type="image/png" href="ARGAZKIAK/EJBE-BG.png"/>
   </head>
   <body>
     <div class="filtro-container">
