@@ -99,7 +99,7 @@ main h3 {
 
 main p {
   font-size: 18px;
-  color: #3d5c50; /* Verde grisáceo */
+  color: #3d5c50;
   max-width: 598px;
   margin: 0 auto 38px;
 }
@@ -110,28 +110,38 @@ main img {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
-  border: 2px solid #c8e6d0; /* Borde verde muy claro */
+  border: 2px solid #c8e6d0;
 }
 
 form {
-  background-color: #e8f5e9; /* Fondo verde claro */
+  background-color: #e8f5e9;
   padding: 28px;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(74, 155, 124, 0.15);
   width: 498px;
   margin: 0 auto;
   text-align: left;
-  border: 1px solid #c8e6d0;
+  display:flex;
+  flex-direction: row;
+  gap:210px;
+  align-items: center;
 }
 
-label {
+.katalogo{
+  background-color: #e8f5e9;
+  padding: 28px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.login{
   display: block;
   font-weight: 600;
   margin-bottom: 3px;
   color: #2a5c4a;
 }
 
-input {
+.input_login {
   width: 100%;
   padding: 10px;
   border: 1px solid #a8d5ba;
@@ -166,14 +176,25 @@ button:hover {
   box-shadow: 0 4px 8px rgba(74, 155, 124, 0.4);
 }
 
-figure {
+.filtro-container{
+  display:flex;
+  flex-direction:row;
+  justify-content: space-around;
+  width:100%;
+}
+
+.container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 48px;
   padding: 38px;
   background-color: #e8f5e9;
-  border-radius: 12px;
-  border: 1px solid #c8e6d0;
+}
+
+.container div{
+  text-align:center;
+  border: 1px solid green;
+  padding:15px;
 }
 
 .logo-empresa {
@@ -193,7 +214,7 @@ figure {
   transform: scale(1.05);
 }
 
-figure img {
+.container img {
   width: 298px;
   height: 248px;
   border-radius: 10px;
@@ -202,7 +223,7 @@ figure img {
   border: 2px solid #c8e6d0;
 }
 
-figure img:hover {
+.container img:hover {
   transform: scale(1.05);
   transition: 0.3s ease;
   box-shadow: 0 4px 12px rgba(74, 155, 124, 0.2);
@@ -215,7 +236,7 @@ figure img:hover {
   margin-top: 8px;
 }
 
-figcaption {
+h3 {
   text-align: center;
   margin-top: 8px;
   font-size: 14px;
