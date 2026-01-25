@@ -1,84 +1,114 @@
 <?php
-include_once "db.php";
+include_once "INIT.php";
 include_once "HEADER.php";
+
+$aukera = isset($_GET["aukera"]) ? $_GET["aukera"] : "guztiak";
+$bilaketa = isset($_GET["bilaketa"]) ? $_GET["bilaketa"] : "";
+$ordena = isset($_GET["ordena"]) ? $_GET["ordena"] : "asc";
+$sql = "SELECT * FROM produktuak WHERE 1=1";
+$params = [];
+
+if ($aukera != "guztiak") {
+    $sql .= " AND mota = ?";
+    $params[] = $aukera;
+}
+
+if (!empty($bilaketa)) {
+    $sql .= " AND izena LIKE ?";
+    $params[] = "%$bilaketa%";
+}
+
+$sql .= " ORDER BY izena " . ($ordena == "desc" ? "DESC" : "ASC");
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+
 ?>
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Katalogoa</title>
-    <link rel="stylesheet" href="CSS_Erronka.css" />
-    <link rel="icon" type="image/png" href="ARGAZKIAK/EJBE-BG.png"/>
-  </head>
-  <body>
-    <div class="filtro-container">
-      <form class="katalogo" action="KATALOGOA.php" method="GET">
+<head>
+  <meta charset="utf-8">
+  <title>Katalogoa</title>
+  <link rel="stylesheet" href="CSS_Erronka.css" />
+  <link rel="icon" type="image/png" href="ARGAZKIAK/EJBE-BG.png"/>
+</head>
+<body>
+<br>
+  <div class="filtro-container">
+    <form class="katalogo" action="KATALOGOA.php" method="GET">
       <div class="aukera">
-      <label for="aukera">Mota:</label>
-      <select id="aukera" name="aukera">
-        <option>guztiak</option>
-        <option>mugikorra</option>
-        <option>ordenagailu eramangarria</option>
-        <option>tableta</option>
-        <option>sagua</option>
-        <option>teklatua</option>
-        <option>monitorea</option>
-        <option>inprimagailua</option>
-        <option>biltegiratzea</option>
-        <option>sarea</option>
-        <option>erloju adimenduna</option>
-        <option>aurikularrak</option>
-        <option>kamera</option>
-      </select>
+        <label for="aukera">Mota:</label>
+        <select id="aukera" name="aukera">
+          <option value="guztiak" <?= $aukera == "guztiak" ? "selected" : "" ?>>Guztiak</option>
+          <option value="mugikorra" <?= $aukera == "mugikorra" ? "selected" : "" ?>>Mugikorra</option>
+          <option value="ordenagailu eramangarria" <?= $aukera == "ordenagailu eramangarria" ? "selected" : "" ?>>Ordenagailu eramangarria</option>
+          <option value="tableta" <?= $aukera == "tableta" ? "selected" : "" ?>>Tableta</option>
+          <option value="sagua" <?= $aukera == "sagua" ? "selected" : "" ?>>Sagua</option>
+          <option value="teklatua" <?= $aukera == "teklatua" ? "selected" : "" ?>>Teklatua</option>
+          <option value="monitorea" <?= $aukera == "monitorea" ? "selected" : "" ?>>Monitorea</option>
+          <option value="inprimagailua" <?= $aukera == "inprimagailua" ? "selected" : "" ?>>Inprimagailua</option>
+          <option value="biltegiratzea" <?= $aukera == "biltegiratzea" ? "selected" : "" ?>>Biltegiratzea</option>
+          <option value="sarea" <?= $aukera == "sarea" ? "selected" : "" ?>>Sarea</option>
+          <option value="erloju adimenduna" <?= $aukera == "erloju adimenduna" ? "selected" : "" ?>>Erloju adimenduna</option>
+          <option value="aurikularrak" <?= $aukera == "aurikularrak" ? "selected" : "" ?>>Aurikularrak</option>
+          <option value="kamera" <?= $aukera == "kamera" ? "selected" : "" ?>>Kamera</option>
+        </select>
       </div>
+      <br>
       <div class="ordena">
-      <label>Ordena:</label>
-      <input type="radio" id="asc" name="ordena" value="asc">
-      <label for="asc">Behetik-gora</label>
-      <input type="radio" id="desc" name="ordena" value="desc">
-      <label for="desc">Goitik-behera</label>
+        <label>Ordena:</label>
+        <br>
+        <label for="asc">Behetik-gora</label>
+        <input type="radio" id="asc" name="ordena" value="asc" <?= $ordena == "asc" ? "checked" : "" ?>>
+        <br>
+        <label for="desc">Goitik-behera</label>
+        <input type="radio" id="desc" name="ordena" value="desc" <?= $ordena == "desc" ? "checked" : "" ?>>
       </div>
+      <br>
       <div class="bilaketa">
-      <label for="bilaketa">Bilaketa</label>
-      <input type="text" id="bilaketa" name="bilaketa">
+        <label for="bilaketa">Bilaketa</label>
+        <input type="text" id="bilaketa" name="bilaketa" value="<?= htmlspecialchars($bilaketa) ?>" placeholder="Bilatu produktuak...">
       </div>
+      <br>
       <button>Bidali</button>
-      </form>
-    </div>
-    <div class="container">
+    </form>
+  </div>
+  
+  <div class="container">
     <?php
-
-    if(isset($_GET["ordena"]) && $_GET["ordena"] === "desc"){
-      $ordena =  "desc";
-    }else{
-      $ordena = "asc";
-    }
-    
-    if (!isset($_GET["aukera"]) && !isset($_GET["bilaketa"])){
-       $stmt = $pdo->query("SELECT * FROM produktuak ORDER BY izena $ordena");
-    }else if($_GET["aukera"] == "guztiak" && $_GET["bilaketa"] == ""){
-      $stmt = $pdo->query("SELECT * FROM produktuak ORDER BY izena $ordena");
-    }else if(!empty($_GET["bilaketa"])){
-      $bilaketa = $_GET["bilaketa"];
-
-    if(!empty($_GET["aukera"]) && $_GET["aukera"] != "guztiak"){
-    $aukera = $_GET["aukera"];
-    $stmt = $pdo->query("SELECT * FROM produktuak WHERE mota = '$aukera' AND izena LIKE '%$bilaketa%' ORDER BY izena $ordena");
-    }else{
-    $stmt = $pdo->query("SELECT * FROM produktuak WHERE izena LIKE '%$bilaketa%' ORDER BY izena $ordena");
-    }
-}
-
-    foreach ($stmt as $row){//datu baseko kontsultatik ateratzen den lerro bakoitzaren datuak $row-en gordetzen da
-        echo "<div>";//produktuaren div-a
-        echo "<img src='" . "./ARGAZKIAK/" . $row["irudia"] . "'/>";//produktuaren argazkia ipintzen du baldin eta datu basean irudia zutabean eta argazkiak karpetan dauden irudien izenak berdinak diren
-        echo "<h3>" . $row["izena"] . "</h3>";//Datu baseko taulako izena zutabean sartu eta idatzi
-        echo "<p>" . $row["prezioa"] . "</p>";//Datu baseko taulako prezioa zutabean sartu eta idatzi
-        echo "<button>Sartu saskira</button>";
-        echo "</div>";//produktuaren div-a itxi
+    if ($stmt->rowCount() > 0) {
+        foreach ($stmt as $row) {
+            echo "<div>";
+            $irudia = !empty($row["irudia"]) ? $row["irudia"] : "default.jpg";
+            echo "<img src='./ARGAZKIAK/" . $irudia . "'/>";
+            echo "<h3>" . $row["izena"] . "</h3>";
+            echo "<p>" . $row["prezioa"] . "€</p>";
+            
+            if (isset($_SESSION['erabiltzailea'])) {
+                echo "<button class='saskia-btn' onclick=\"alert('Produktua saskian sartu da!')\">Sartu saskira</button>";
+            } else {
+                echo "<button class='saskia-btn' onclick=\"alert('Mesedez, saioa hasi produktua erosteko')\">Sartu saskira</button>";
+            }
+            
+            echo "</div>";
+        }
+    } else {
+        echo "<p style='text-align:center; width:100%; color: #2a5c4a; font-size: 16px; padding: 20px;'>Ez da produkturik aurkitu zure bilaketarekin.</p>";
     }
     ?>
-    </div>
-    <?php include_once 'FOOTER.php'; ?>
-  </body>
+  </div>
+  
+  <?php include_once 'FOOTER.php'; ?>
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const productos = document.querySelectorAll('.container > div');
+    if (productos.length === 0) {
+      console.log('No se encontraron productos');
+    } else {
+      console.log('Productos encontrados: ' + productos.length);
+    }
+  });
+  </script>
+</body>
 </html>

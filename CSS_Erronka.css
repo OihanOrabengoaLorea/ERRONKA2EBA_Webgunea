@@ -2,25 +2,25 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
-  color: #1d3c34; /* Verde oscuro en lugar de negro puro */
+  color: #1d3c34; 
   font-size: 15px;
   line-height: 1.58;
   background-size: cover;
   background-position: center;
-  background-color: #f8fbf9; /* Fondo verde muy claro */
+  background-color: #f8fbf9; 
 }
 
 header {
-  background-color: rgba(232, 245, 233, 0.95); /* Verde claro translúcido */
+  background-color: rgba(232, 245, 233, 0.95); 
   color: #1d3c34;
   display: flex;
   justify-content: center;
   position: sticky;
   padding: 10px;
   top: 0; 
-  border-bottom: 2px solid #4a9b7c; /* Borde verde */
+  border-bottom: 2px solid #4a9b7c; 
   font-size: 10px;
-  backdrop-filter: blur(8px); /* Efecto glass */
+  backdrop-filter: blur(8px); 
 }
  
 .nav{
@@ -67,7 +67,7 @@ nav a {
 
 nav a:hover {
   color: white;
-  background-color: #4a9b7c; /* Verde medio */
+  background-color: #4a9b7c; 
   transform: translateY(-2px);
 }
 
@@ -87,12 +87,12 @@ main h1 {
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 18px;
-  color: #2a5c4a; /* Verde intermedio */
+  color: #2a5c4a; 
   text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 }
 
 main h3 {
-  color: #357a5c; /* Verde para subtítulos */
+  color: #357a5c; 
   border-left: 4px solid #4a9b7c;
   padding-left: 12px;
 }
@@ -113,18 +113,6 @@ main img {
   border: 2px solid #c8e6d0;
 }
 
-form {
-  background-color: #e8f5e9;
-  padding: 28px;
-  border-radius: 10px;
-  width: 498px;
-  margin: 0 auto;
-  text-align: left;
-  display:flex;
-  flex-direction: row;
-  gap:210px;
-  align-items: center;
-}
 
 .katalogo{
   background-color: #e8f5e9;
@@ -159,7 +147,7 @@ input:focus {
 }
 
 button {
-  background-color: #4a9b7c; /* Verde principal */
+  background-color: #4a9b7c; 
   color: white;
   border: none;
   padding: 12px 24px;
@@ -171,16 +159,17 @@ button {
 }
 
 button:hover {
-  background-color: #357a5c; /* Verde más oscuro */
+  background-color: #357a5c; 
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(74, 155, 124, 0.4);
 }
 
-.filtro-container{
-  display:flex;
-  flex-direction:row;
-  justify-content: space-around;
-  width:100%;
+.filtro-container {
+  background: white;
+  border-radius: 12px;
+  margin: 20px auto;
+  max-width: 1200px;
+  border: 1px solid #c8e6d0;
 }
 
 .container {
@@ -194,7 +183,119 @@ button:hover {
 .container div{
   text-align:center;
   border: 1px solid green;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(74, 155, 124, 0.1);
   padding:15px;
+  background: white;
+}
+
+.login-container {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(29, 60, 52, 0.12);
+  padding: 40px;
+  max-width: 500px;
+  margin: 50px auto;
+  border: 1px solid #c8e6d0;
+}
+
+.login-container h2 {
+  text-align: center;
+  color: #2a5c4a;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+.login-container form {
+  background-color: white;
+  display: block;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  padding: 0;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #2a5c4a;
+  font-size: 15px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #a8d5ba;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: white;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4a9b7c;
+  box-shadow: 0 0 0 3px rgba(74, 155, 124, 0.2);
+}
+
+.form-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+  justify-content: center;
+}
+
+.form-buttons button {
+  min-width: 120px;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #e8f5e9;
+  color: #3d5c50;
+}
+
+.login-link a {
+  color: #4a9b7c;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+  color: #357a5c;
+  text-decoration: underline;
+}
+
+.alert {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.katalogo input[type="text"],
+.katalogo select {
+  border-radius: 8px;
 }
 
 .logo-empresa {
@@ -217,10 +318,6 @@ button:hover {
 .container img {
   width: 298px;
   height: 248px;
-  border-radius: 10px;
-  background-color: #f8fbf9;
-  box-shadow: 0 2px 6px rgba(74, 155, 124, 0.1);
-  border: 2px solid #c8e6d0;
 }
 
 .container img:hover {
@@ -275,25 +372,11 @@ footer a:hover {
   height: 18px;
 }
 
-/* Añado algunas mejoras visuales */
 .main h1 {
   position: relative;
   padding-bottom: 15px;
 }
 
-.main h1::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 3px;
-  background: linear-gradient(to right, #4a9b7c, #a8d5ba);
-  border-radius: 2px;
-}
-
-/* Estilos para la página de noticias específicamente */
 .main h3 {
   margin-top: 30px;
   padding: 10px;

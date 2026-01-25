@@ -1,12 +1,15 @@
-<?php
-session_start();
+<?php 
 include 'INIT.php';
+
+if (isset($_SESSION['erabiltzailea'])) {
+    header('Location: SARRERA.php');
+    exit();
+}
 
 $errorea = '';
 $arrakasta = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recoger datos del formulario
     $nan = $_POST['nan'] ?? '';
     $izena = $_POST['izena'] ?? '';
     $abizena = $_POST['abizena'] ?? '';
@@ -14,41 +17,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pasahitza = $_POST['pasahitza'] ?? '';
     $telefonoa = $_POST['telefonoa'] ?? '';
 
-    // Validar campos obligatorios
     if (empty($nan) || empty($izena) || empty($abizena) || empty($email) || empty($pasahitza)) {
         $errorea = 'Mesedez, bete eremu guztiak.';
     } elseif (strlen($pasahitza) < 6) {
         $errorea = 'Pasahitzak gutxienez 6 karaktere izan behar ditu.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errorea = 'Posta elektronikoaren formatua ez da zuzena.';
+    } elseif (!preg_match('/^[0-9]{8}[A-Z]$/', $nan)) {
+        $errorea = 'NANaren formatua ez da zuzena (8 zenbaki + letra maiuskula).';
     } else {
         try {
-            // Comprobar si el usuario ya existe
-            $stmt = $pdo->prepare("SELECT * FROM erabiltzaileak WHERE NANa = ? OR email = ?");
+            $stmt = $pdo->prepare("SELECT * FROM bezeroak WHERE NAN = ? OR email = ?");
             $stmt->execute([$nan, $email]);
             
             if ($stmt->rowCount() > 0) {
                 $errorea = 'NAN edo email hori dagoeneko erregistratuta dago.';
             } else {
-                // Insertar nuevo usuario
                 $pasahitza_hash = password_hash($pasahitza, PASSWORD_DEFAULT);
-                
-                $insert = $pdo->prepare("INSERT INTO erabiltzaileak (NANa, izena, abizena, email, pasahitza, rola) VALUES (?, ?, ?, ?, ?, 'erabiltzailea')");
-                
+                $insert = $pdo->prepare("INSERT INTO bezeroak (NAN, izena, abizena, email, pasahitza) VALUES (?, ?, ?, ?, ?)");
+
                 if ($insert->execute([$nan, $izena, $abizena, $email, $pasahitza_hash])) {
+                    
                     $arrakasta = 'Erregistroa arrakastatsua! Orain saioa hasi dezakezu.';
                     
-                    // Iniciar sesión automáticamente
-                    $stmt = $pdo->prepare("SELECT * FROM erabiltzaileak WHERE email = ?");
+                    $stmt = $pdo->prepare("SELECT * FROM bezeroak WHERE email = ?");
                     $stmt->execute([$email]);
-                    $erabiltzailea = $stmt->fetch();
+                    $bezeroa = $stmt->fetch();
                     
-                    if ($erabiltzailea) {
+                    if ($bezeroa) {
                         $_SESSION['erabiltzailea'] = [
-                            'id' => $erabiltzailea['id'],
-                            'izena' => $erabiltzailea['izena'],
-                            'abizena' => $erabiltzailea['abizena'],
-                            'email' => $erabiltzailea['email'],
-                            'rola' => $erabiltzailea['rola']
+                            'id' => $bezeroa['id'],
+                            'NAN' => $bezeroa['NAN'],
+                            'izena' => $bezeroa['izena'],
+                            'abizena' => $bezeroa['abizena'],
+                            'email' => $bezeroa['email']
                         ];
+                        
+                        echo '<script>
+                            setTimeout(function() {
+                                window.location.href = "SARRERA.php";
+                            }, 2000);
+                        </script>';
                     }
                 } else {
                     $errorea = 'Errorea gertatu da erregistroan.';
@@ -72,60 +81,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include 'HEADER.php'; ?>
     
     <main>
-        <h2>Erregistratu</h2>
-        
-        <?php if (!empty($errorea)): ?>
-            <div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #f5c6cb;">
-                <?php echo $errorea; ?>
-            </div>
-        <?php endif; ?>
-        
-        <?php if (!empty($arrakasta)): ?>
-            <div style="background-color: #d4edda; color: #155724; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #c3e6cb;">
-                <?php echo $arrakasta; ?>
-            </div>
-        <?php endif; ?>
-        
-        <form method="post" action="">
-            <div>
-                <label for="nan">NANa (DNI)</label>
-                <input type="text" id="nan" name="nan" placeholder="01234567A" required>
-            </div>
+        <div class="login-container">
+            <h2>Erregistratu</h2>
             
-            <div>
-                <label for="izena">Izena</label>
-                <input type="text" id="izena" name="izena" required>
-            </div>
+            <?php if (!empty($errorea)): ?>
+                <div class="alert alert-error">
+                    <?php echo $errorea; ?>
+                </div>
+            <?php endif; ?>
             
-            <div>
-                <label for="abizena">Abizena</label>
-                <input type="text" id="abizena" name="abizena" required>
-            </div>
+            <?php if (!empty($arrakasta)): ?>
+                <div class="alert alert-success">
+                    <?php echo $arrakasta; ?>
+                </div>
+            <?php endif; ?>
             
-            <div>
-                <label for="telefonoa">Telefonoa</label>
-                <input type="tel" id="telefonoa" name="telefonoa" placeholder="+34 688 452 317">
-            </div>
-            
-            <div>
-                <label for="posta_elektronikoa">Posta elektronikoa</label>
-                <input type="email" id="posta_elektronikoa" name="posta_elektronikoa" placeholder="example@gmail.com" required>
-            </div>
-            
-            <div>
-                <label for="pasahitza">Pasahitza</label>
-                <input type="password" name="pasahitza" id="pasahitza" required>
-            </div>
-            
-            <div>
-                <button type="reset">Ezabatu</button>
-                <button type="submit">Sortu</button>
-            </div>
-        </form>
-        
-        <p style="margin-top: 20px;">
-            <b> Dagoeneko kontua duzu? <a href="HASI SAIOA.php" style="color: #4a9b7c;">Hasi saioa hemen</a></b>
-        </p>
+            <form method="post" action="">
+                <div class="form-group">
+                    <label for="nan">NANa (DNI)</label>
+                    <input type="text" id="nan" name="nan" placeholder="01234567A" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="izena">Izena</label>
+                    <input type="text" id="izena" name="izena" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="abizena">Abizena</label>
+                    <input type="text" id="abizena" name="abizena" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telefonoa">Telefonoa</label>
+                    <input type="tel" id="telefonoa" name="telefonoa" placeholder="+34 688 452 317">
+                </div>
+                
+                <div class="form-group">
+                    <label for="posta_elektronikoa">Posta elektronikoa</label>
+                    <input type="email" id="posta_elektronikoa" name="posta_elektronikoa" 
+                           placeholder="example@gmail.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pasahitza">Pasahitza</label>
+                    <input type="password" name="pasahitza" id="pasahitza" required>
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="reset">Ezabatu</button>
+                    <button type="submit">Sortu</button>
+                </div>
+            </form>
+            <br>
+            <p class="login-link">
+                <b>Dagoeneko kontua duzu? <a href="HASI SAIOA.php">Hasi saioa hemen</a></b>
+            </p>
+        </div>
     </main>
     
     <?php include 'FOOTER.php'; ?>

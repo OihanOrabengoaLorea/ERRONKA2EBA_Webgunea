@@ -1,3 +1,6 @@
+<?php
+include 'INIT.php';  
+?>
 <!DOCTYPE html>
 <html lang="eu">
 <head>

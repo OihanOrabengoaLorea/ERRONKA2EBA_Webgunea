@@ -1,6 +1,11 @@
-<?php include 'INIT.php'; ?>
+<?php 
+include 'INIT.php';
 
-<?php
+if (isset($_SESSION['erabiltzailea'])) {
+    header('Location: SARRERA.php');
+    exit();
+}
+
 $errorea = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -13,15 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
             $stmt = $pdo->prepare("SELECT * FROM bezeroak WHERE email = ?");
             $stmt->execute([$email]);
-            $erabiltzailea = $stmt->fetch();
+            $bezeroa = $stmt->fetch();
 
-            if ($erabiltzailea && password_verify($pasahitza, $erabiltzailea['pasahitza'])) {
+            if ($bezeroa && $bezeroa['pasahitza'] === $pasahitza) {
                 $_SESSION['erabiltzailea'] = [
-                    'id' => $erabiltzailea['id'],
-                    'NAN' => $erabiltzailea['NAN'],
-                    'izena' => $erabiltzailea['izena'],
-                    'abizena' => $erabiltzailea['abizena'],
-                    'email' => $erabiltzailea['email'],
+                    'id' => $bezeroa['id'],
+                    'NAN' => $bezeroa['NAN'],
+                    'izena' => $bezeroa['izena'],
+                    'abizena' => $bezeroa['abizena'],
+                    'email' => $bezeroa['email']
                 ];
                 
                 header('Location: SARRERA.php');
@@ -47,34 +52,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include 'HEADER.php'; ?>
     
     <main>
-        <h2>Hasi saioa</h2>
-        
-        <?php if (!empty($errorea)): ?>
-            <div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #f5c6cb;">
-                <?php echo $errorea; ?>
-            </div>
-        <?php endif; ?>
-        
-        <form method="post" action="">
-             <div>
-                <label for="posta_elektronikoa">Posta elektronikoa</label>
-                <input type="email" id="posta_elektronikoa" name="posta_elektronikoa" placeholder="example@gmail.com" required>
-             </div>
-             
-             <div>
-                <label for="pasahitza">Pasahitza</label>
-                <input type="password" name="pasahitza" id="pasahitza" required>
-             </div>
-             
-             <div>
-                <button type="reset">Ezabatu</button>
-                <button type="submit">Sartu</button>
-             </div>
-        </form>
-        
-        <p style="margin-top: 20px;">
-            <b>Ez duzu konturik? <a href="IZENA EMAN.php" style="color: #4a9b7c;">Erregistratu hemen</a></b>
-        </p>
+        <div class="login-container">
+            <h2>Hasi saioa</h2>
+            
+            <?php if (!empty($errorea)): ?>
+                <div class="alert alert-error">
+                    <?php echo $errorea; ?>
+                </div>
+            <?php endif; ?>
+            
+            <form method="post" action="">
+                <div class="form-group">
+                    <label for="posta_elektronikoa">Posta elektronikoa</label>
+                    <input type="email" id="posta_elektronikoa" name="posta_elektronikoa" 
+                           placeholder="example@gmail.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pasahitza">Pasahitza</label>
+                    <input type="password" name="pasahitza" id="pasahitza" required>
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="reset">Ezabatu</button>
+                    <button type="submit">Sartu</button>
+                </div>
+            </form>
+            <p class="login-link">
+                <br>
+                <b>Ez duzu konturik? <a href="IZENA EMAN.php">Erregistratu hemen</a></b>
+            </p>
+        </div>
     </main>
     
     <?php include 'FOOTER.php'; ?>
