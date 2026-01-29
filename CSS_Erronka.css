@@ -1,30 +1,30 @@
-body { 
+body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
-  color: #1d3c34; 
+  color: #1d3c34;
   font-size: 15px;
   line-height: 1.58;
   background-size: cover;
   background-position: center;
-  background-color: #f8fbf9; 
+  background-color: #f8fbf9;
 }
 
 header {
-  background-color: rgba(232, 245, 233, 0.95); 
+  background-color: rgba(232, 245, 233, 0.95);
   color: #1d3c34;
   display: flex;
   justify-content: center;
   position: sticky;
   padding: 10px;
-  top: 0; 
-  border-bottom: 2px solid #4a9b7c; 
+  top: 0;
+  border-bottom: 2px solid #4a9b7c;
   font-size: 10px;
-  backdrop-filter: blur(8px); 
+  backdrop-filter: blur(8px);
 }
- 
-.nav{
-  display: flex; 
+
+.nav {
+  display: flex;
   gap: 40px;
   justify-content: center;
   align-items: center;
@@ -41,17 +41,17 @@ header {
 }
 
 .testuArgazki1 {
-  float: left;          
-  margin: 8px 18px 8px 0;    
-  height: auto;         
+  float: left;
+  margin: 8px 18px 8px 0;
+  height: auto;
   border: 3px solid #4a9b7c;
   border-radius: 8px;
 }
 
 .testuArgazki2 {
-  float: right;          
-  margin: 8px 18px 8px 0;    
-  height: auto;         
+  float: right;
+  margin: 8px 18px 8px 0;
+  height: auto;
   border: 3px solid #4a9b7c;
   border-radius: 8px;
 }
@@ -67,14 +67,14 @@ nav a {
 
 nav a:hover {
   color: white;
-  background-color: #4a9b7c; 
+  background-color: #4a9b7c;
   transform: translateY(-2px);
 }
 
-img.LOGO {   
-  border-radius: 50%;  
+img.LOGO {
+  border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #4a9b7c;  
+  border: 2px solid #4a9b7c;
 }
 
 main {
@@ -87,12 +87,12 @@ main h1 {
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 18px;
-  color: #2a5c4a; 
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  color: #2a5c4a;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 main h3 {
-  color: #357a5c; 
+  color: #357a5c;
   border-left: 4px solid #4a9b7c;
   padding-left: 12px;
 }
@@ -114,7 +114,7 @@ main img {
 }
 
 
-.katalogo{
+.katalogo {
   background-color: #e8f5e9;
   padding: 28px;
   width: 100%;
@@ -122,7 +122,7 @@ main img {
   text-align: left;
 }
 
-.login{
+.login {
   display: block;
   font-weight: 600;
   margin-bottom: 3px;
@@ -147,7 +147,7 @@ input:focus {
 }
 
 button {
-  background-color: #4a9b7c; 
+  background-color: #4a9b7c;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -159,7 +159,7 @@ button {
 }
 
 button:hover {
-  background-color: #357a5c; 
+  background-color: #357a5c;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(74, 155, 124, 0.4);
 }
@@ -180,12 +180,12 @@ button:hover {
   background-color: #e8f5e9;
 }
 
-.container div{
-  text-align:center;
+.container div {
+  text-align: center;
   border: 1px solid green;
   border-radius: 15px;
   box-shadow: 0 6px 15px rgba(74, 155, 124, 0.1);
-  padding:15px;
+  padding: 15px;
   background: white;
 }
 
@@ -293,11 +293,6 @@ button:hover {
   border: 1px solid #c3e6cb;
 }
 
-.katalogo input[type="text"],
-.katalogo select {
-  border-radius: 8px;
-}
-
 .logo-empresa {
   width: 100%;
   max-width: 98px;
@@ -339,7 +334,7 @@ h3 {
   font-size: 14px;
   color: #2a5c4a;
   font-weight: 600;
-}   
+}
 
 footer {
   background-color: #e8f5e9;
@@ -367,7 +362,7 @@ footer a:hover {
   transform: translateX(3px);
 }
 
-.mota{
+.mota {
   width: 18px;
   height: 18px;
 }
@@ -382,4 +377,163 @@ footer a:hover {
   padding: 10px;
   background: linear-gradient(to right, #e8f5e9, #f8fbf9);
   border-radius: 6px;
+}
+
+.cart-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 15px;
+  transition: all 0.3s ease;
+  color: black;
+}
+
+.cart-link:hover {
+  background-color: #4a9b7c;
+  color: white;
+}
+
+.cart-link svg {
+  stroke: currentColor;
+}
+
+.cart-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ff4444;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-size: 10px;
+  font-weight: bold;
+  min-width: 14px;
+  text-align: center;
+  line-height: 1;
+  border: 1px solid white;
+}
+
+.saskia-btn-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.erosi-btn {
+  background-color: #2a5c4a;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.erosi-btn:hover {
+  background-color: #1e4235;
+  transform: translateY(-2px);
+}
+
+.saskia-btn {
+  background-color: white;
+  color: #2a5c4a;
+  border: 1px solid #2a5c4a;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.saskia-btn:hover {
+  background-color: #e8f5e9;
+  transform: translateY(-2px);
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cart-table th,
+.cart-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 14px;
+}
+
+.cart-table th {
+  background-color: #2a5c4a;
+  color: white;
+}
+
+.cart-total {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2a5c4a;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.btn-remove {
+  color: #ff4444;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.btn-remove:hover {
+  text-decoration: underline;
+}
+
+.checkout-btn {
+  background-color: #2a5c4a;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  float: right;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.checkout-btn:hover {
+  background-color: #1e4235;
+}
+
+.cart-total a.saskia-btn {
+  float: left;
+  margin-top: 15px;
+}
+
+/* Clearfix */
+.cart-total::after {
+  content: "";
+  display: table;
+  clear: both;
 }

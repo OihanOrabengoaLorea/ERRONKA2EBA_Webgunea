@@ -5,13 +5,13 @@ include 'INIT.php';
 <html lang="eu">
 <head>
     <meta charset="utf-8">
-    <title>SecondsAgo</title>
+    <title>EJBE</title>
     <link rel="stylesheet" href="CSS_Erronka.css" />
     <link rel="icon" type="image/png" href="ARGAZKIAK/EJBE-BG.png"/>
 </head>
 <body>
 <?php include 'HEADER.php'; ?>
-
+ 
   <main>
     <h2>Gure enpresa</h2>
     <p>

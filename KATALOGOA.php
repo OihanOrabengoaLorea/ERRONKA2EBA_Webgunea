@@ -53,7 +53,7 @@ $stmt->execute($params);
           <option value="aurikularrak" <?= $aukera == "aurikularrak" ? "selected" : "" ?>>Aurikularrak</option>
           <option value="kamera" <?= $aukera == "kamera" ? "selected" : "" ?>>Kamera</option>
         </select>
-      </div>
+      </div> 
       <br>
       <div class="ordena">
         <label>Ordena:</label>
@@ -66,7 +66,7 @@ $stmt->execute($params);
       </div>
       <br>
       <div class="bilaketa">
-        <label for="bilaketa">Bilaketa</label>
+        <label for="bilaketa">Bilaketa:</label>
         <input type="text" id="bilaketa" name="bilaketa" value="<?= htmlspecialchars($bilaketa) ?>" placeholder="Bilatu produktuak...">
       </div>
       <br>
@@ -85,9 +85,15 @@ $stmt->execute($params);
             echo "<p>" . $row["prezioa"] . "€</p>";
             
             if (isset($_SESSION['erabiltzailea'])) {
-                echo "<button class='saskia-btn' onclick=\"alert('Produktua saskian sartu da!')\">Sartu saskira</button>";
+                echo "<div class='saskia-btn-group'>";
+                echo "<a href='SASKIA_KUDEATU.php?action=add&id=" . $row['id'] . "' class='saskia-btn'>Sartu saskira</a>";
+                echo "<a href='SASKIA_KUDEATU.php?action=buy_now&id=" . $row['id'] . "' class='erosi-btn'>Erosi orain</a>";
+                echo "</div>";
             } else {
+                echo "<div class='saskia-btn-group'>";
                 echo "<button class='saskia-btn' onclick=\"alert('Mesedez, saioa hasi produktua erosteko')\">Sartu saskira</button>";
+                echo "<button class='erosi-btn' onclick=\"alert('Mesedez, saioa hasi produktua erosteko')\">Erosi orain</button>";
+                echo "</div>";
             }
             
             echo "</div>";

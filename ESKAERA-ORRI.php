@@ -3,7 +3,7 @@ include 'INIT.php';
 ?>
 <!DOCTYPE html>
 <html>
-    <head>
+    <head> 
     <meta charset="utf-8">
     <title>Formularioa</title>
     <link rel="stylesheet" href="CSS_Erronka.css" />
