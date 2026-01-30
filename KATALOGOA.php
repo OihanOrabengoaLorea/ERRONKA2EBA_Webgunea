@@ -86,7 +86,7 @@ $stmt->execute($params);
             
             if (isset($_SESSION['erabiltzailea'])) {
                 echo "<div class='saskia-btn-group'>";
-                echo "<a href='SASKIA_KUDEATU.php?action=add&id=" . $row['id'] . "' class='saskia-btn'>Sartu saskira</a>";
+                echo "<a href='SASKIA_KUDEATU.php?action=add&id=" . $row['id'] . "&mode=silent' target='cart_iframe' class='saskia-btn'>Sartu saskira</a>";
                 echo "<a href='SASKIA_KUDEATU.php?action=buy_now&id=" . $row['id'] . "' class='erosi-btn'>Erosi orain</a>";
                 echo "</div>";
             } else {
@@ -106,14 +106,46 @@ $stmt->execute($params);
   
   <?php include_once 'FOOTER.php'; ?>
   
+  <iframe name="cart_iframe" style="display:none;"></iframe>
+  
   <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // Simple Console Log
     const productos = document.querySelectorAll('.container > div');
     if (productos.length === 0) {
-      console.log('No se encontraron productos');
+      console.log('Produktuak ez dira aurkitu.');
     } else {
-      console.log('Productos encontrados: ' + productos.length);
+      console.log('Produktuak aurkitutak: ' + productos.length);
     }
+    
+    // JS for Cart Badge Counter (No AJAX)
+    const addLinks = document.querySelectorAll('a.saskia-btn');
+    addLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            // Update badge immediately
+            let badge = document.getElementById('cart-count');
+            if (!badge) {
+                // If badge doesn't exist yet, create it
+                const cartLink = document.querySelector('.cart-link');
+                if (cartLink) {
+                   badge = document.createElement('span');
+                   badge.id = 'cart-count';
+                   badge.className = 'cart-badge';
+                   badge.textContent = '0';
+                   cartLink.appendChild(badge);
+                }
+            }
+            if (badge) {
+                let count = parseInt(badge.textContent);
+                if (isNaN(count)) count = 0;
+                badge.textContent = count + 1;
+                
+                 // Visual feedback
+                badge.style.transform = 'scale(1.2)';
+                setTimeout(() => badge.style.transform = 'scale(1)', 200);
+            }
+        });
+    });
   });
   </script>
 </body>

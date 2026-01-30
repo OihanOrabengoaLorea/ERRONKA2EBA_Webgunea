@@ -27,6 +27,11 @@ switch ($action) {
                 $_SESSION['saskia'][$id] = 1;
             }
         }
+        
+        // Check for Silent Mode (Iframe)
+        if (isset($_GET['mode']) && $_GET['mode'] == 'silent') {
+            exit(); // Stop execution, prevents redirect/page reload
+        }
         break;
 
     case 'remove':

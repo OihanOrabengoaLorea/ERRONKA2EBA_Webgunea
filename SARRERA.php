@@ -2,7 +2,7 @@
 include 'INIT.php';  
 ?>
 <!DOCTYPE html>
-<html lang="eu">
+<html lang="eu"> 
 <head>
     <meta charset="utf-8">
     <title>EJBE</title>
