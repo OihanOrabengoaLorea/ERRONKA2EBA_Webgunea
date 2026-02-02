@@ -25,7 +25,7 @@ header {
 
 .nav {
   display: flex;
-  gap: 40px;
+  gap: 30px;
   justify-content: center;
   align-items: center;
   max-width: 100%;
@@ -387,12 +387,10 @@ footer a:hover {
   width: 40px;
   height: 40px;
   padding: 0;
-  /* Reset padding to ensure square */
   margin-right: 15px;
   transition: all 0.3s ease;
   color: black;
   border-radius: 0;
-  /* Square hover */
 }
 
 .cart-link:hover {
@@ -403,22 +401,17 @@ footer a:hover {
 .cart-badge {
   position: absolute;
   top: -5px;
-  /* Adjusted to sit better */
   right: -5px;
   background-color: #ff4444;
   color: white;
   width: 20px;
-  /* Fixed width for circle */
   height: 20px;
-  /* Fixed height for circle */
   font-size: 10px;
   font-weight: bold;
   display: flex;
-  /* Centering text */
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  /* Circle */
   border: 1px solid white;
 }
 
@@ -536,9 +529,72 @@ footer a:hover {
   margin-top: 15px;
 }
 
-/* Clearfix */
 .cart-total::after {
   content: "";
   display: table;
   clear: both;
+}
+
+/* Formulario Styles */
+.formulario-container {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(29, 60, 52, 0.12);
+  padding: 40px;
+  max-width: 800px;
+  /* Wider than login for more inputs */
+  margin: 50px auto;
+  border: 1px solid #c8e6d0;
+}
+
+.role-selection {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8f5e9;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #2a5c4a;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.radio-label input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #4a9b7c;
+  cursor: pointer;
+}
+
+/* Optional: Grid layout for the form fields */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Make certain fields span full width if needed, or if using grid */
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Disabled input styling adjustment */
+.form-group input:disabled {
+  background-color: #f4f6f5;
+  color: #888;
+  border-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
 }
