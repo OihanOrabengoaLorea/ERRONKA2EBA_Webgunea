@@ -36,9 +36,9 @@ $stmt->execute($params);
 <br>
   <div class="filtro-container">
     <form class="katalogo" action="KATALOGOA.php" method="GET">
-      <div class="aukera">
-        <label for="aukera">Mota:</label>
-        <select id="aukera" name="aukera">
+      <div class="aukera form-group" style="margin-bottom:0">
+        <label for="aukera">Mota</label>
+        <select id="aukera" name="aukera" class="filter-select">
           <option value="guztiak" <?= $aukera == "guztiak" ? "selected" : "" ?>>Guztiak</option>
           <option value="mugikorra" <?= $aukera == "mugikorra" ? "selected" : "" ?>>Mugikorra</option>
           <option value="ordenagailu eramangarria" <?= $aukera == "ordenagailu eramangarria" ? "selected" : "" ?>>Ordenagailu eramangarria</option>
@@ -54,22 +54,24 @@ $stmt->execute($params);
           <option value="kamera" <?= $aukera == "kamera" ? "selected" : "" ?>>Kamera</option>
         </select>
       </div> 
-      <br>
+      
+      <div class="bilaketa form-group" style="margin-bottom:0">
+        <label for="bilaketa">Bilaketa</label>
+        <input type="text" id="bilaketa" name="bilaketa" value="<?= htmlspecialchars($bilaketa) ?>" placeholder="Bilatu produktuak..." class="filter-input">
+      </div>
+
       <div class="ordena">
-        <label>Ordena:</label>
-        <br>
-        <label for="asc">Behetik-gora</label>
-        <input type="radio" id="asc" name="ordena" value="asc" <?= $ordena == "asc" ? "checked" : "" ?>>
-        <br>
-        <label for="desc">Goitik-behera</label>
-        <input type="radio" id="desc" name="ordena" value="desc" <?= $ordena == "desc" ? "checked" : "" ?>>
+        <label>Ordena</label>
+        <div style="display:flex; gap:15px; margin-top:5px;">
+            <label for="asc" style="font-weight:400; font-size:14px; display:flex; align-items:center; gap:5px; margin:0;">
+                <input type="radio" id="asc" name="ordena" value="asc" <?= $ordena == "asc" ? "checked" : "" ?>> Behetik-gora
+            </label>
+            <label for="desc" style="font-weight:400; font-size:14px; display:flex; align-items:center; gap:5px; margin:0;">
+                <input type="radio" id="desc" name="ordena" value="desc" <?= $ordena == "desc" ? "checked" : "" ?>> Goitik-behera
+            </label>
+        </div>
       </div>
-      <br>
-      <div class="bilaketa">
-        <label for="bilaketa">Bilaketa:</label>
-        <input type="text" id="bilaketa" name="bilaketa" value="<?= htmlspecialchars($bilaketa) ?>" placeholder="Bilatu produktuak...">
-      </div>
-      <br>
+
       <button>Bidali</button>
     </form>
   </div>

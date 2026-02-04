@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php echo $mezua; ?>
 
         <form action="#" method="post" class="formularioa-form">
-            <div class="role-selection">
+            <div class="role-selection" <?php if ($user) echo 'style="display:none;"'; ?>>
                 <label class="radio-label">
                     <input type="radio" name="Aukera" value="bezeroa" class="mota" required 
                     <?php if ($mota === 'bezeroa') echo 'checked'; ?>> Bezeroa
@@ -131,11 +131,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="text" id="produktu_marka" name="produktu_marka" disabled>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group full-width">
                     <label for="produktua">Produktua</label>
                     <input type="text" id="produktua" name="produktua" required disabled>
                 </div>
-                <div class="form-group">
+                <div class="form-group full-width">
                     <label for="produktu_kopurua">Produktu kopurua</label>
                     <input type="number" id="produktu_kopurua" name="produktu_kopurua" min="1" disabled>
                 </div>
@@ -161,56 +161,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ?>   
     </body>
     <script>
-    // Include the same script logic but ensure it runs correctly with pre-filled values
     const rolAukerak = document.querySelectorAll('input[name="Aukera"]');
-    const eremuGuztiak = document.querySelectorAll(
-      'input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="reset"], input[type="submit"]'
-    );
-
-    function desgaituDenak() {
-        // Only disable inputs that SHOULD be switchable. 
-        // Caution: disabled inputs are NOT sent in POST. We need to enable them before submit or use <input type="hidden">
-        // Simpler for this level: Enable them based on selection immediately.
+    
+    // Helper helper to toggle field visibility and state
+    function toggleField(id, show) {
+        const input = document.getElementById(id);
+        if (!input) return;
         
-        // Actually, logic below re-enables them.
-        eremuGuztiak.forEach(e => {
-            // Keep values if already there
-             e.disabled = true;
-        });
+        // Toggle Disabled
+        input.disabled = !show;
+        
+        // Toggle Visibility of Parent Group
+        const group = input.closest('.form-group');
+        if (group) {
+            group.style.display = show ? 'block' : 'none';
+        }
     }
 
     // Function to handle state based on current selection
     function eguneratuEgoera(mota) {
-        desgaituDenak();
+        // Common Fields (Always shown for both, unless specific logic says otherwise)
+        const commonFields = [
+            'posta_elektronikoa', 'telefonoa', 
+            'produktu_mota', 'produktu_marka', 'produktua', 
+            'produktuaren_deskribapena', 'oharrak'
+        ];
         
-        if (mota === 'bezeroa') {
-          document.getElementById('izena').disabled = false;
-          document.getElementById('abizena').disabled = false;
-          document.getElementById('posta_elektronikoa').disabled = false;
-          document.getElementById('telefonoa').disabled = false;
-          document.getElementById('produktu_mota').disabled = false;
-          document.getElementById('produktu_marka').disabled = false;
-          document.getElementById('produktua').disabled = false;
-          document.getElementById('oharrak').disabled = false;
-          document.querySelector('input[type="reset"]').disabled = false;
-          document.querySelector('input[type="submit"]').disabled = false;
-          
-          document.getElementById('produktuaren_deskribapena').disabled = false; 
+        commonFields.forEach(id => toggleField(id, true));
 
+        // Bezeroa Fields
+        const bezeroaFields = ['izena', 'abizena'];
+        // Hornitzailea Fields
+        const hornitzaileaFields = ['harremanetarako_pertsona', 'enpresaren_izena', 'produktu_kopurua'];
+
+        if (mota === 'bezeroa') {
+            bezeroaFields.forEach(id => toggleField(id, true));
+            hornitzaileaFields.forEach(id => toggleField(id, false));
         } else if (mota === 'hornitzailea') {
-          document.getElementById('harremanetarako_pertsona').disabled = false;
-          document.getElementById('enpresaren_izena').disabled = false;
-          document.getElementById('posta_elektronikoa').disabled = false;
-          document.getElementById('telefonoa').disabled = false;
-          document.getElementById('produktu_mota').disabled = false;
-          document.getElementById('produktu_marka').disabled = false;
-          document.getElementById('produktua').disabled = false;
-          document.getElementById('produktu_kopurua').disabled = false;
-          document.getElementById('produktuaren_deskribapena').disabled = false;
-          document.getElementById('oharrak').disabled = false;
-          document.querySelector('input[type="reset"]').disabled = false;
-          document.querySelector('input[type="submit"]').disabled = false;
+            bezeroaFields.forEach(id => toggleField(id, false));
+            hornitzaileaFields.forEach(id => toggleField(id, true));
         }
+        
+        // Ensure buttons are enabled
+        document.querySelector('input[type="reset"]').disabled = false;
+        document.querySelector('input[type="submit"]').disabled = false;
     }
 
     rolAukerak.forEach(aukera => {
@@ -224,8 +218,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(hautatua) {
         eguneratuEgoera(hautatua.value);
     } else {
-        desgaituDenak();
+        // Default state if nothing selected (shouldn't happen with modification 1, but safe fallback)
+        // Hide specific fields, keep common? Or just wait for selection.
+        // Let's mimic previous 'all disabled' by hiding role specific ones
+        ['izena', 'abizena', 'harremanetarako_pertsona', 'enpresaren_izena', 'produktu_kopurua'].forEach(id => toggleField(id, false));
     }
-  </script>
+    </script>
     
 </html>

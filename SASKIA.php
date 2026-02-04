@@ -80,7 +80,7 @@ if (!empty($cart_items)) {
             <div class="cart-total">
                 <p>Guztira: <?= number_format($total, 2) ?>€</p>
                 <a href="KATALOGOA.php" class="saskia-btn" style="float: left;">Jarraitu erosten</a>
-                <a href="ESKAERA-ORRI.php" class="checkout-btn">Eskatu Orain</a>
+                <a href="SASKIA_KUDEATU.php?action=checkout" class="checkout-btn" onclick="return confirm('Ziur zaude erosketa burutu nahi duzula? (Totala: <?= number_format($total, 2) ?>€)');">Eskatu Orain</a>
             </div>
             <div style="clear: both;"></div>
         <?php endif; ?>

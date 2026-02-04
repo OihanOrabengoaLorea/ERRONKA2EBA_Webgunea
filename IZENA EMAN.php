@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             ];
                             echo '<script>setTimeout(function(){ window.location.href = "SARRERA.php"; }, 2000);</script>';
                         }
-                    }
+                    } 
                 }
             } 
             // HORNITZAILEA

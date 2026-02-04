@@ -15,9 +15,9 @@ include 'INIT.php';
   <main>
     <h2>Gure enpresa</h2>
     <p>
-      <strong>SecondsAgo</strong> enpresa <strong>ordenagailu eta mugikor erabiliak berriz saltzen</strong> eta
+      <strong>EJBE (Eusko Jaurlaritzako Birgaitze Elektronikoa)</strong> enpresa <strong>ordenagailu eta mugikor erabiliak berriz saltzen</strong> eta
       <strong>osagai elektronikoak</strong> eskaintzen espezializatuta dago. Gure helburua
-      bezeroei produktu fidagarriak prezio onean eskaintzea eta aholkularitza hurbila ematea da.
+      erakunde publiko eta pribatuei zein norbanakoei produktu fidagarriak prezio onean eskaintzea eta aholkularitza hurbila ematea da, teknologiaren berrerabilpena sustatuz.
     </p>
 
     <h2>Kokalekua</h2>
