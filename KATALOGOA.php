@@ -112,42 +112,34 @@ $stmt->execute($params);
   
   <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Simple Console Log
     const productos = document.querySelectorAll('.container > div');
     if (productos.length === 0) {
       console.log('Produktuak ez dira aurkitu.');
     } else {
       console.log('Produktuak aurkitutak: ' + productos.length);
     }
-    
-    // JS for Cart Badge Counter (No AJAX)
-    const addLinks = document.querySelectorAll('a.saskia-btn');
-    addLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            // Update badge immediately
-            let badge = document.getElementById('cart-count');
-            if (!badge) {
-                // If badge doesn't exist yet, create it
-                const cartLink = document.querySelector('.cart-link');
-                if (cartLink) {
-                   badge = document.createElement('span');
-                   badge.id = 'cart-count';
-                   badge.className = 'cart-badge';
-                   badge.textContent = '0';
-                   cartLink.appendChild(badge);
-                }
+
+    window.updateCartBadge = function() {
+        let badge = document.getElementById('cart-count');
+        if (!badge) {
+            const cartLink = document.querySelector('.cart-link');
+            if (cartLink) {
+                badge = document.createElement('span');
+                badge.id = 'cart-count';
+                badge.className = 'cart-badge';
+                badge.textContent = '0';
+                cartLink.appendChild(badge);
             }
-            if (badge) {
-                let count = parseInt(badge.textContent);
-                if (isNaN(count)) count = 0;
-                badge.textContent = count + 1;
-                
-                 // Visual feedback
-                badge.style.transform = 'scale(1.2)';
-                setTimeout(() => badge.style.transform = 'scale(1)', 200);
-            }
-        });
-    });
+        }
+        if (badge) {
+            let count = parseInt(badge.textContent);
+            if (isNaN(count)) count = 0;
+            badge.textContent = count + 1;
+            
+            badge.style.transform = 'scale(1.2)';
+            setTimeout(() => badge.style.transform = 'scale(1)', 200);
+        }
+    };
   });
   </script>
 </body>

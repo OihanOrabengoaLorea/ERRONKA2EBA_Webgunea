@@ -16,21 +16,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errorea = 'Mesedez, bete eremu guztiak.';
     } else {
         try {
-            // 1. Check BEZEROAK
             $stmt = $pdo->prepare("SELECT * FROM bezeroak WHERE email = ?");
             $stmt->execute([$email]);
             $bezeroa = $stmt->fetch();
 
             if ($bezeroa) {
-                // Check if password_verify works (for hashes) OR if plain text matches (legacy)
-                if (password_verify($pasahitza, $bezeroa['pasahitza']) || $bezeroa['pasahitza'] === $pasahitza) {
-                    
-                    // If it was plain text, update to hash automatically
-                    if ($bezeroa['pasahitza'] === $pasahitza && !password_verify($pasahitza, $bezeroa['pasahitza'])) {
-                        $newHash = password_hash($pasahitza, PASSWORD_DEFAULT);
-                        $update = $pdo->prepare("UPDATE bezeroak SET pasahitza = ? WHERE id = ?");
-                        $update->execute([$newHash, $bezeroa['id']]);
-                    }
+                if ($bezeroa['pasahitza'] === $pasahitza) {
 
                     $_SESSION['erabiltzailea'] = [
                         'id' => $bezeroa['id'],
@@ -46,25 +37,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $errorea = 'Pasahitza okerra.';
                 }
             } else {
-                // 2. Check HORNITZAILEAK
                 $stmt = $pdo->prepare("SELECT * FROM hornitzaileak WHERE email = ?");
                 $stmt->execute([$email]);
                 $hornitzailea = $stmt->fetch();
 
                 if ($hornitzailea) {
-                     // Check hash OR plain
-                    if (password_verify($pasahitza, $hornitzailea['pasahitza']) || $hornitzailea['pasahitza'] === $pasahitza) {
-
-                        // Auto-update to hash if plain
-                        if ($hornitzailea['pasahitza'] === $pasahitza && !password_verify($pasahitza, $hornitzailea['pasahitza'])) {
-                            $newHash = password_hash($pasahitza, PASSWORD_DEFAULT);
-                            $update = $pdo->prepare("UPDATE hornitzaileak SET pasahitza = ? WHERE id = ?");
-                            $update->execute([$newHash, $hornitzailea['id']]);
-                        }
+                    if ($hornitzailea['pasahitza'] === $pasahitza) {
 
                          $_SESSION['erabiltzailea'] = [
                             'id' => $hornitzailea['id'],
-                            'izena' => $hornitzailea['izena'], // Company Name
+                            'izena' => $hornitzailea['izena']
                             'kontaktu_izena' => $hornitzailea['kontaktu_izena'],
                             'email' => $hornitzailea['email'],
                             'telefonoa' => $hornitzailea['telefonoa'],

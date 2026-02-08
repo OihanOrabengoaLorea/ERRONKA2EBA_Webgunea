@@ -3,7 +3,7 @@ include 'INIT.php';
 ?>
 <!DOCTYPE html>
 <html lang="eu">
-<head>
+<head> 
     <meta charset="utf-8">
     <title>Enpresaren historia</title>
     <link rel="stylesheet" href="CSS_Erronka.css" />

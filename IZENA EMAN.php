@@ -10,13 +10,10 @@ $errorea = '';
 $arrakasta = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $mota = $_POST['mota'] ?? 'bezeroa'; // 'bezeroa' edo 'hornitzailea'
+    $mota = $_POST['mota'] ?? 'bezeroa'; // 
     $pasahitza = $_POST['pasahitza'] ?? '';
-
-    // Eremu komunak eta espezifikoak
     $email = $_POST['posta_elektronikoa'] ?? '';
     $telefonoa = $_POST['telefonoa'] ?? '';
-
     if (empty($email) || empty($pasahitza) || empty($mota)) {
         $errorea = 'Mesedez, bete derrigorrezko eremu guztiak.';
     } elseif (strlen($pasahitza) < 6) {
@@ -25,10 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errorea = 'Posta elektronikoaren formatua ez da zuzena.';
     } else {
         try {
-            // Hash the password securely
-            $pasahitza_hash = password_hash($pasahitza, PASSWORD_DEFAULT);
-
-            // BEZEROA
+            $pasahitza_hash = $pasahitza;
             if ($mota === 'bezeroa') {
                 $nan = $_POST['nan'] ?? '';
                 $izena = $_POST['izena'] ?? '';
@@ -39,17 +33,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } elseif (!preg_match('/^[0-9]{8}[A-Z]$/', $nan)) {
                     $errorea = 'NANaren formatua ez da zuzena (8 zenbaki + letra maiuskula).';
                 } else {
-                    // Check duplicate
                     $stmt = $pdo->prepare("SELECT * FROM bezeroak WHERE NAN = ? OR email = ?");
                     $stmt->execute([$nan, $email]);
                     if ($stmt->rowCount() > 0) {
                         $errorea = 'NAN edo email hori dagoeneko erregistratuta dago bezero moduan.';
                     } else {
-                        // Insert Hashed Password
                         $insert = $pdo->prepare("INSERT INTO bezeroak (NAN, izena, abizena, email, pasahitza) VALUES (?, ?, ?, ?, ?)");
                         if ($insert->execute([$nan, $izena, $abizena, $email, $pasahitza_hash])) {
                             $arrakasta = 'Bezeroa ondo erregistratu da!';
-                            // Auto login
                             $bezeroId = $pdo->lastInsertId();
                             $_SESSION['erabiltzailea'] = [
                                 'id' => $bezeroId,
@@ -64,26 +55,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     } 
                 }
             } 
-            // HORNITZAILEA
             else {
-                $enpresaIzena = $_POST['izena_enpresa'] ?? ''; // Match HTML ID/Name
+                $enpresaIzena = $_POST['izena_enpresa'] ?? ''; 
                 $kontaktuIzena = $_POST['kontaktu_izena'] ?? '';
                 $helbidea = $_POST['helbidea'] ?? '';
 
                 if (empty($enpresaIzena) || empty($kontaktuIzena) || empty($helbidea) || empty($telefonoa)) {
                     $errorea = 'Mesedez, bete Hornitzailearen datu guztiak.';
                 } else {
-                    // Check duplicate
                     $stmt = $pdo->prepare("SELECT * FROM hornitzaileak WHERE email = ?");
                     $stmt->execute([$email]);
                     if ($stmt->rowCount() > 0) {
                         $errorea = 'Email hori dagoeneko erregistratuta dago hornitzaile moduan.';
                     } else {
-                        // Insert Hashed Password
                         $insert = $pdo->prepare("INSERT INTO hornitzaileak (izena, kontaktu_izena, email, helbidea, telefonoa, pasahitza) VALUES (?, ?, ?, ?, ?, ?)");
                         if ($insert->execute([$enpresaIzena, $kontaktuIzena, $email, $helbidea, $telefonoa, $pasahitza_hash])) {
                             $arrakasta = 'Hornitzailea ondo erregistratu da!';
-                             // Auto login
                             $hornId = $pdo->lastInsertId();
                             $_SESSION['erabiltzailea'] = [
                                 'id' => $hornId,
@@ -140,8 +127,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label style="margin-right: 20px;"><input type="radio" name="mota" value="bezeroa" checked onchange="toggleForm()"> Bezeroa</label>
                     <label><input type="radio" name="mota" value="hornitzailea" onchange="toggleForm()"> Hornitzailea</label>
                 </div>
-
-                <!-- BEZEROA FIELDS -->
                 <div id="bezeroa-fields">
                     <div class="form-group">
                         <label for="nan">NANa (DNI)</label>
@@ -158,8 +143,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="text" id="abizena" name="abizena">
                     </div>
                 </div>
-
-                <!-- HORNITZAILEA FIELDS -->
                 <div id="hornitzailea-fields" class="hidden">
                     <div class="form-group">
                         <label for="izena_enpresa">Enpresaren Izena</label>
@@ -174,8 +157,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="text" id="helbidea" name="helbidea">
                     </div>
                 </div>
-
-                <!-- COMMON FIELDS -->
                 <div class="form-group">
                     <label for="telefonoa">Telefonoa</label>
                     <input type="tel" id="telefonoa" name="telefonoa" placeholder="+34 688 452 317" required>
@@ -214,11 +195,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mota === 'bezeroa') {
                 bezeroaFields.classList.remove('hidden');
                 hornitzaileaFields.classList.add('hidden');
-                // Set required
                 document.getElementById('nan').required = true;
                 document.getElementById('izena').required = true;
                 document.getElementById('abizena').required = true;
-                
                 document.getElementById('izena_enpresa').required = false;
                 document.getElementById('kontaktu_izena').required = false;
                 document.getElementById('helbidea').required = false;
@@ -226,17 +205,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 bezeroaFields.classList.add('hidden');
                 hornitzaileaFields.classList.remove('hidden');
-                // Set required
                 document.getElementById('nan').required = false;
                 document.getElementById('izena').required = false;
                 document.getElementById('abizena').required = false;
-
                 document.getElementById('izena_enpresa').required = true;
                 document.getElementById('kontaktu_izena').required = true;
                 document.getElementById('helbidea').required = true;
             }
         }
-        // Initialize
         toggleForm();
     </script>
 </body>

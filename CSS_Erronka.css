@@ -17,7 +17,6 @@ header {
   justify-content: center;
   position: sticky;
   padding: 10px;
-  overflow: auto;
   top: 0;
   min-height: 30px;
   border-bottom: 2px solid #4a9b7c;
@@ -115,9 +114,6 @@ main img {
   border: 2px solid #c8e6d0;
 }
 
-
-
-/* Shared Container Styles */
 .login-container,
 .formulario-container,
 .filtro-container {
@@ -128,10 +124,8 @@ main img {
   margin: 50px auto;
   border: 1px solid #c8e6d0;
   box-sizing: border-box;
-  /* Ensure padding doesn't affect width calculation unexpected */
 }
 
-/* Specific Container Size Adjustments */
 .login-container {
   max-width: 500px;
 }
@@ -143,10 +137,8 @@ main img {
 .filtro-container {
   max-width: 1200px;
   margin: 20px auto;
-  /* Keep the original margin expectation for catalog */
 }
 
-/* Shared Input Styles */
 .input_login,
 .form-group input,
 .form-group select,
@@ -163,7 +155,7 @@ main img {
 }
 
 .input_login:focus,
-.form-group input:focus,
+N.form-group input:focus,
 .form-group select:focus,
 .filter-input:focus,
 .filter-select:focus {
@@ -215,7 +207,6 @@ button:hover {
   font-size: 15px;
 }
 
-/* Form Buttons */
 .form-buttons {
   display: flex;
   gap: 15px;
@@ -247,7 +238,6 @@ button:hover {
   text-decoration: underline;
 }
 
-/* Alert Styles */
 .alert {
   padding: 12px;
   border-radius: 6px;
@@ -267,7 +257,6 @@ button:hover {
   border: 1px solid #c3e6cb;
 }
 
-/* Logo Empresa */
 .logo-empresa {
   width: 100%;
   max-width: 98px;
@@ -285,14 +274,12 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* Catalogue Grid */
 .container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 48px;
   padding: 38px;
   background-color: #e8f5e9;
-  /* Conserving original bg */
 }
 
 .container div {
@@ -308,7 +295,6 @@ button:hover {
   width: 298px;
   height: 248px;
   object-fit: contain;
-  /* Better for assorted product images */
 }
 
 .container img:hover {
@@ -317,9 +303,7 @@ button:hover {
   box-shadow: 0 4px 12px rgba(74, 155, 124, 0.2);
 }
 
-/* Catalog Filter Specifics */
 .katalogo {
-  /* Removed redundant backgrounds since container has it */
   width: 100%;
   margin: 0 auto;
   text-align: left;
@@ -327,7 +311,6 @@ button:hover {
   flex-wrap: wrap;
   gap: 20px;
   align-items: flex-end;
-  /* Align buttons with inputs */
 }
 
 .katalogo .aukera,
@@ -353,11 +336,9 @@ button:hover {
 
 .katalogo button {
   height: 48px;
-  /* Match input height approx */
   margin-bottom: 2px;
 }
 
-/* Misc */
 .button {
   display: flex;
   justify-content: center;
@@ -572,7 +553,6 @@ footer a:hover {
   clear: both;
 }
 
-/* Form Styles Reuse */
 .role-selection {
   display: flex;
   justify-content: center;
@@ -700,4 +680,123 @@ footer a:hover {
   color: #3d5c50;
   line-height: 1.6;
   flex-grow: 1;
+}
+
+.clickable-title {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.clickable-title:hover {
+  color: #4a9b7c;
+  text-decoration: underline;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 40px;
+  border: 1px solid #c8e6d0;
+  width: 80%;
+  max-width: 800px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: modalFadeIn 0.4s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close-modal {
+  color: #aaa;
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+  color: #2a5c4a;
+  text-decoration: none;
+}
+
+.modal-header {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e8f5e9;
+}
+
+#modalTitle {
+  font-size: 2rem;
+  color: #2a5c4a;
+  margin-bottom: 25px;
+  text-align: left;
+  border-left: none;
+  padding-left: 0;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.modal-image-container {
+  width: 100%;
+  text-align: center;
+  background: #f8fbf9;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px dashed #c8e6d0;
+}
+
+.modal-news-image {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.image-placeholder {
+  color: #999;
+  font-style: italic;
+  padding: 40px;
+}
+
+.modal-full-content {
+  font-size: 1.1rem;
+  color: #3d5c50;
+  line-height: 1.8;
+  white-space: pre-wrap;
 }

@@ -21,16 +21,32 @@ $redirect_url = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'KA
 switch ($action) {
     case 'add':
         if ($id > 0) {
-            if (isset($_SESSION['saskia'][$id])) {
-                $_SESSION['saskia'][$id]++;
+            $stmt = $pdo->prepare("SELECT stock, izena FROM produktuak WHERE id = ?");
+            $stmt->execute([$id]);
+            $product = $stmt->fetch();
+            
+            $current_qty = isset($_SESSION['saskia'][$id]) ? $_SESSION['saskia'][$id] : 0;
+            
+            if ($product && $product['stock'] > $current_qty) {
+                $_SESSION['saskia'][$id] = $current_qty + 1;
             } else {
-                $_SESSION['saskia'][$id] = 1;
+                $product_name = $product ? $product['izena'] : 'produktu hau';
+                $msg = "Ezin da gehiago gehitu. Ez dago nahikoa stock $product_name-(e)rako.";
+                echo "<script>
+                    alert('$msg');
+                    " . (isset($_GET['mode']) && $_GET['mode'] == 'silent' ? "" : "window.location.href = '$redirect_url';") . "
+                </script>";
+                exit();
             }
         }
-        
-        // Check for Silent Mode (Iframe)
+
         if (isset($_GET['mode']) && $_GET['mode'] == 'silent') {
-            exit(); // Stop execution, prevents redirect/page reload
+            echo "<script>
+                if (window.parent && window.parent.updateCartBadge) {
+                    window.parent.updateCartBadge();
+                }
+            </script>";
+            exit(); 
         }
         break;
 
@@ -57,13 +73,25 @@ switch ($action) {
         
     case 'buy_now':
         if ($id > 0) {
-             if (isset($_SESSION['saskia'][$id])) {
-                $_SESSION['saskia'][$id]++;
+            $stmt = $pdo->prepare("SELECT stock, izena FROM produktuak WHERE id = ?");
+            $stmt->execute([$id]);
+            $product = $stmt->fetch();
+            
+            $current_qty = isset($_SESSION['saskia'][$id]) ? $_SESSION['saskia'][$id] : 0;
+            
+            if ($product && $product['stock'] > $current_qty) {
+                $_SESSION['saskia'][$id] = $current_qty + 1;
+                $redirect_url = 'SASKIA.php'; 
             } else {
-                $_SESSION['saskia'][$id] = 1;
+                $product_name = $product ? $product['izena'] : 'produktu hau';
+                $msg = "Ezin da erosi. Ez dago nahikoa stock $product_name-(e)rako.";
+                echo "<script>
+                    alert('$msg');
+                    window.location.href = '$redirect_url';
+                </script>";
+                exit();
             }
         }
-        $redirect_url = 'SASKIA.php'; 
         break;
 
     case 'checkout':
@@ -74,7 +102,7 @@ switch ($action) {
         }
 
         try {
-            // 1. Validate Stock & Calculate Total
+    
             $pdo->beginTransaction();
             
             $ids = array_map('intval', array_keys($cart_items));
@@ -83,8 +111,7 @@ switch ($action) {
             $in  = str_repeat('?,', count($ids) - 1) . '?';
             $stmt = $pdo->prepare("SELECT id, izena, prezioa, stock FROM produktuak WHERE id IN ($in)");
             $stmt->execute($ids);
-            $products = $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch as associative array
-            
+            $products = $stmt->fetchAll(PDO::FETCH_ASSOC); 
             $totala = 0;
             $productMap = [];
 
@@ -105,7 +132,6 @@ switch ($action) {
                 $totala += $product['prezioa'] * $qty;
             }
 
-            // 2. Create Invoice (Fakturak)
             $user = $_SESSION['erabiltzailea'];
             $id_bezeroa = ($user['mota'] === 'bezeroa') ? $user['id'] : null;
             $id_hornitzailea = ($user['mota'] === 'hornitzailea') ? $user['id'] : null;
@@ -115,7 +141,7 @@ switch ($action) {
             $stmtFaktura->execute([$id_bezeroa, $id_hornitzailea, $data, $totala]);
             $fakturaId = $pdo->lastInsertId();
 
-            // 3. Create Order Items (Erosketa) & Update Stock
+    
             $stmtErosketa = $pdo->prepare("INSERT INTO erosketa (id_bezeroa, id_hornitzailea, id_produktua, id_faktura, totala, data, zenbatekoa) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $stmtStock = $pdo->prepare("UPDATE produktuak SET stock = stock - ? WHERE id = ?");
 
@@ -135,18 +161,14 @@ switch ($action) {
                     $qty
                 ]);
 
-                // Update Stock
                 $stmtStock->execute([$qty, $pid]);
             }
 
             $pdo->commit();
             
-            // Clear cart
+  
             $_SESSION['saskia'] = [];
             
-            // Redirect with success
-            // We can't easily pass a complex message via URL param without encoding, 
-            // but let's assume KATALOGOA handles a simple 'success' flag or we add a script.
             echo "<script>
                 alert('Erosketa ondo burutu da! Faktura ID: $fakturaId');
                 window.location.href = 'KATALOGOA.php';
