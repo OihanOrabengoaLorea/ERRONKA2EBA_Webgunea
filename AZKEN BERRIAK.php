@@ -79,7 +79,17 @@ include 'INIT.php';
                                 <span class="news-date"><?php echo htmlspecialchars($news['berria_data']); ?></span>
                                 <span class="priority-badge <?php echo $priorityClass; ?>"><?php echo htmlspecialchars($news['garrantzi_maila']); ?></span>
                             </div>
+<<<<<<< HEAD
 
+=======
+                            <?php if (!empty($news['irudia'])): ?>
+                                <div class="news-card-image-container">
+                                    <img src="ARGAZKIAK/NOTICIAS/<?php echo htmlspecialchars($news['irudia']); ?>" 
+                                         alt="<?php echo htmlspecialchars($news['berria_izena']); ?>" 
+                                         class="news-card-image">
+                                </div>
+                            <?php endif; ?>
+>>>>>>> origin/Aimar
                             <h3 class="news-title clickable-title" 
                                 onclick="openNewsModal(this)"
                                 data-title="<?php echo htmlspecialchars($news['berria_izena']); ?>"

@@ -3,9 +3,9 @@
         <div class="nav">
             <img src="ARGAZKIAK/EJBE-CleanLogo-BG.png" width="40px" height="20px">
             <a href="SARRERA.php">HASIERA</a>
+            <a href="KATALOGOA.php">KATALOGOA</a>
             <a href="AZKEN BERRIAK.php">BERRIAK</a>
             <a href="ENPRESAREN HISTORIA.php">HISTORIOA</a>
-            <a href="KATALOGOA.php">KATALOGOA</a>
             <a href="FORMULARIOA.php">FORMULARIOA</a>
             
             <?php 

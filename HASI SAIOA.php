@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                          $_SESSION['erabiltzailea'] = [
                             'id' => $hornitzailea['id'],
-                            'izena' => $hornitzailea['izena']
+                            'izena' => $hornitzailea['izena'],
                             'kontaktu_izena' => $hornitzailea['kontaktu_izena'],
                             'email' => $hornitzailea['email'],
                             'telefonoa' => $hornitzailea['telefonoa'],
