@@ -1,20 +1,23 @@
+<?php
+include 'INIT.php';  
+?>
 <!DOCTYPE html>
-<html lang="eu">
+<html lang="eu"> 
 <head>
     <meta charset="utf-8">
-    <title>SecondsAgo</title>
+    <title>EJBE</title>
     <link rel="stylesheet" href="CSS_Erronka.css" />
-    <link rel="icon" type="image/png" href="SECONDS AGO LOGO.png"/>
+    <link rel="icon" type="image/png" href="ARGAZKIAK/EJBE-BG.png"/>
 </head>
 <body>
 <?php include 'HEADER.php'; ?>
-
+ 
   <main>
     <h2>Gure enpresa</h2>
     <p>
-      <strong>SecondsAgo</strong> enpresa <strong>ordenagailu eta mugikor erabiliak berriz saltzen</strong> eta
+      <strong>EJBE (Eusko Jaurlaritzako Birgaitze Elektronikoa)</strong> enpresa <strong>ordenagailu eta mugikor erabiliak berriz saltzen</strong> eta
       <strong>osagai elektronikoak</strong> eskaintzen espezializatuta dago. Gure helburua
-      bezeroei produktu fidagarriak prezio onean eskaintzea eta aholkularitza hurbila ematea da.
+      erakunde publiko eta pribatuei zein norbanakoei produktu fidagarriak prezio onean eskaintzea eta aholkularitza hurbila ematea da, teknologiaren berrerabilpena sustatuz.
     </p>
 
     <h2>Kokalekua</h2>
