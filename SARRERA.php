@@ -31,7 +31,7 @@ include 'INIT.php';
       </p>
 
       <div class="info-grid">
-        <div class="info-card">
+        <div class="info-card" id="KONTAKTUAK">
           <h3>Kokalekua</h3>
           <p><strong>Helbidea:</strong> Kale Nagusia, Ordizia</p>
           <p><strong>Herria:</strong> Ordizia (Gipuzkoa)</p>
@@ -45,7 +45,7 @@ include 'INIT.php';
       </div>
     </section>
 
-    <section style="margin-top: 60px;">
+    <section style="margin-top: 60px;" id="KOKAPENA">
       <h2 class="section-title">Non Gaude?</h2>
       <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
         <iframe src="https://www.google.com/maps?q=Kale%20Nagusia%2C%20Ordizia&output=embed" width="100%" height="450"

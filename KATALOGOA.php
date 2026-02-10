@@ -1,6 +1,5 @@
 <?php
 include_once "INIT.php";
-include_once "HEADER.php";
 
 $aukera = isset($_GET["aukera"]) ? $_GET["aukera"] : "guztiak";
 $bilaketa = isset($_GET["bilaketa"]) ? $_GET["bilaketa"] : "";
@@ -35,6 +34,7 @@ $stmt->execute($params);
 </head>
 
 <body>
+  <?php include_once "HEADER.php"; ?>
   <br>
   <div class="filtro-container">
     <form class="katalogo" action="KATALOGOA.php" method="GET">

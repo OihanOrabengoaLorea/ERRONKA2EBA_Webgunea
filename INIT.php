@@ -5,9 +5,9 @@ if (session_status() === PHP_SESSION_NONE) {
 
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
 
-$host = "192.168.115.171";
-$user = "erabiltzaile";
-$pass = "2TALDEA";
+$host = "localhost";
+$user = "root";
+$pass = "1MG32025";
 $dbname = "erronka_2taldea";
 
 $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
