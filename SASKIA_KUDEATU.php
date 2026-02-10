@@ -124,7 +124,7 @@ switch ($action) {
                 
                 $product = $productMap[$pid];
                 
-                // STOCK CHECK
+                
                 if ($product['stock'] < $qty) {
                     throw new Exception("Ez dago nahikoa stock produktu honetarako: " . $product['izena'] . " (Eskuragarri: " . $product['stock'] . ")");
                 }
@@ -150,7 +150,7 @@ switch ($action) {
                 $product = $productMap[$pid];
                 $line_total = $product['prezioa'] * $qty;
 
-                // Insert Erosketa
+
                 $stmtErosketa->execute([
                     $id_bezeroa, 
                     $id_hornitzailea, 

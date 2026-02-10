@@ -10,7 +10,6 @@ $user = "erabiltzaile";
 $pass = "2TALDEA";
 $dbname = "erronka_2taldea";
 
-
 $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
 
 try {

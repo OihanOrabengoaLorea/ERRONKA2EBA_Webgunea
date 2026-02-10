@@ -77,17 +77,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <?php include 'HEADER.php'; ?>
-    
     <main>
         <div class="login-container">
             <h2>Hasi saioa</h2>
-            
             <?php if (!empty($errorea)): ?>
                 <div class="alert alert-error">
                     <?php echo $errorea; ?>
                 </div>
             <?php endif; ?>
-            
             <form method="post" action="">
                 <div class="form-group">
                     <label for="posta_elektronikoa">Posta elektronikoa</label>
@@ -111,7 +108,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </p>
         </div>
     </main>
-    
     <?php include 'FOOTER.php'; ?>
 </body>
 </html>

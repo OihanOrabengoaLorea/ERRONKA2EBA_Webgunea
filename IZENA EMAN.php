@@ -10,7 +10,7 @@ $errorea = '';
 $arrakasta = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $mota = $_POST['mota'] ?? 'bezeroa'; // 
+    $mota = $_POST['mota'] ?? 'bezeroa'; 
     $pasahitza = $_POST['pasahitza'] ?? '';
     $email = $_POST['posta_elektronikoa'] ?? '';
     $telefonoa = $_POST['telefonoa'] ?? '';

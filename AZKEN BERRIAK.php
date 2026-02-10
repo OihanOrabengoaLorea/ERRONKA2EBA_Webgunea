@@ -79,17 +79,6 @@ include 'INIT.php';
                                 <span class="news-date"><?php echo htmlspecialchars($news['berria_data']); ?></span>
                                 <span class="priority-badge <?php echo $priorityClass; ?>"><?php echo htmlspecialchars($news['garrantzi_maila']); ?></span>
                             </div>
-<<<<<<< HEAD
-
-=======
-                            <?php if (!empty($news['irudia'])): ?>
-                                <div class="news-card-image-container">
-                                    <img src="ARGAZKIAK/NOTICIAS/<?php echo htmlspecialchars($news['irudia']); ?>" 
-                                         alt="<?php echo htmlspecialchars($news['berria_izena']); ?>" 
-                                         class="news-card-image">
-                                </div>
-                            <?php endif; ?>
->>>>>>> origin/Aimar
                             <h3 class="news-title clickable-title" 
                                 onclick="openNewsModal(this)"
                                 data-title="<?php echo htmlspecialchars($news['berria_izena']); ?>"
@@ -117,7 +106,6 @@ include 'INIT.php';
         </div>
     </div>
 
-    <!-- News Modal -->
     <div id="newsModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeNewsModal()">&times;</span>
@@ -128,7 +116,6 @@ include 'INIT.php';
             <h2 id="modalTitle"></h2>
             <div class="modal-body">
                 <div id="modalImageContainer" class="modal-image-container">
-                    <!-- Image will be inserted here if exists -->
                 </div>
                 <div id="modalFullContent" class="modal-full-content"></div>
             </div>
@@ -160,20 +147,18 @@ include 'INIT.php';
             img.className = 'modal-news-image';
             imageContainer.appendChild(img);
         } else {
-            // Optional: placeholder or just leave empty
             imageContainer.innerHTML = '<div class="image-placeholder">No image available</div>';
         }
 
         document.getElementById('newsModal').style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        document.body.style.overflow = 'hidden';
     }
 
     function closeNewsModal() {
         document.getElementById('newsModal').style.display = 'none';
-        document.body.style.overflow = 'auto'; // Re-enable scrolling
+        document.body.style.overflow = 'auto';
     }
 
-    // Close when clicking outside
     window.onclick = function(event) {
         const modal = document.getElementById('newsModal');
         if (event.target == modal) {

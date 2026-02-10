@@ -596,12 +596,6 @@ footer a:hover {
   cursor: not-allowed;
 }
 
-@media (max-width: 768px) {
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 .news-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

@@ -14,8 +14,8 @@ include "header.php";
 $mezua = '';
 $user = isset($_SESSION['erabiltzailea']) ? $_SESSION['erabiltzailea'] : null;
 
-// Auto-fill Logic
-$mota = $user ? ($user['mota'] ?? 'bezeroa') : 'bezeroa'; // 'bezeroa' default if not logged in, but inputs are disabled?
+
+$mota = $user ? ($user['mota'] ?? 'bezeroa') : 'bezeroa'; 
 $izena = '';
 $abizena = '';
 $email = '';
@@ -28,10 +28,9 @@ if ($user) {
         $izena = $user['izena'];
         $abizena = $user['abizena'];
         $email = $user['email'];
-        // Phone might not be in session for bezeroa if we didn't store it, 
-        // but let's assume valid session struct from login
+        
     } else {
-        // Hornitzailea
+
         $enpresa_izena = $user['izena']; // We stored company name in 'izena'
         $harremanetarako = $user['kontaktu_izena'];
         $email = $user['email'];
@@ -39,11 +38,11 @@ if ($user) {
     }
 }
 
-// FORM SUBMISSION
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $aukeratutakoMota = $_POST['Aukera'] ?? '';
     
-    // Get all fields
+
     $izenaPost = $_POST['izena'] ?? null;
     $abizenaPost = $_POST['abizena'] ?? null;
     $harremanetarakoPost = $_POST['harremanetarako_pertsona'] ?? null;
@@ -108,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="form-group">
                     <label for="harremanetarako_pertsona">Harremanetarako pertsona</label>
-                    <input type="text" id="harremanetarako_pertsona" name="harremanetarako_pertsona" value="<?php echo htmlspecialchars($harremanetarako); ?>" required disabled>
+                    <input type="text" id="harremanetarako_pertsona" name="harremanetarako_pertsona" value="<?php echo htmlspecialchars($harremanetarako); ?>" placeholder="Izen eta abizena" required disabled>
                 </div>
                 <div class="form-group"  >
                     <label for="posta_elektronikoa">Posta elektronikoa</label>
@@ -133,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="form-group full-width">
                     <label for="produktua">Produktua</label>
-                    <input type="text" id="produktua" name="produktua" required disabled>
+                    <input type="text" id="produktua" name="produktua" placeholder="Produktu bat ipini" required disabled>
                 </div>
                 <div class="form-group full-width">
                     <label for="produktu_kopurua">Produktu kopurua</label>
@@ -143,11 +142,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group full-width">
                 <label for="produktuaren_deskribapena">Produktuaren deskribapena</label>
-                <input type="text" id="produktuaren_deskribapena" name="produktuaren_deskribapena" required disabled>
+                <input type="text" id="produktuaren_deskribapena" name="produktuaren_deskribapena" placeholder="Produktuaren egitura eta berezitasunak aipatu" required disabled>
             </div>
             <div class="form-group full-width">
                 <label for="oharrak">Oharrak</label>
-                <input type="text" id="oharrak" name="oharrak" disabled>
+                <input type="text" id="oharrak" name="oharrak" placeholder="Gure teknikarientzarako ohar batzuk" required disabled>
             </div>
             <div class="form-buttons">
                 <button type="reset">Ezabatu</button>
@@ -163,24 +162,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script>
     const rolAukerak = document.querySelectorAll('input[name="Aukera"]');
     
-    // Helper helper to toggle field visibility and state
+
     function toggleField(id, show) {
         const input = document.getElementById(id);
         if (!input) return;
         
-        // Toggle Disabled
+
         input.disabled = !show;
         
-        // Toggle Visibility of Parent Group
+
         const group = input.closest('.form-group');
         if (group) {
             group.style.display = show ? 'block' : 'none';
         }
     }
 
-    // Function to handle state based on current selection
+
     function eguneratuEgoera(mota) {
-        // Common Fields (Always shown for both, unless specific logic says otherwise)
+
         const commonFields = [
             'posta_elektronikoa', 'telefonoa', 
             'produktu_mota', 'produktu_marka', 'produktua', 
@@ -189,9 +188,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         commonFields.forEach(id => toggleField(id, true));
 
-        // Bezeroa Fields
+
         const bezeroaFields = ['izena', 'abizena'];
-        // Hornitzailea Fields
+
         const hornitzaileaFields = ['harremanetarako_pertsona', 'enpresaren_izena', 'produktu_kopurua'];
 
         if (mota === 'bezeroa') {
@@ -202,7 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             hornitzaileaFields.forEach(id => toggleField(id, true));
         }
         
-        // Ensure buttons are enabled
+
         document.querySelector('input[type="reset"]').disabled = false;
         document.querySelector('input[type="submit"]').disabled = false;
     }
@@ -213,14 +212,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       });
     });
 
-    // Run on load to set initial state
+
     const hautatua = document.querySelector('input[name="Aukera"]:checked');
     if(hautatua) {
         eguneratuEgoera(hautatua.value);
     } else {
-        // Default state if nothing selected (shouldn't happen with modification 1, but safe fallback)
-        // Hide specific fields, keep common? Or just wait for selection.
-        // Let's mimic previous 'all disabled' by hiding role specific ones
+
         ['izena', 'abizena', 'harremanetarako_pertsona', 'enpresaren_izena', 'produktu_kopurua'].forEach(id => toggleField(id, false));
     }
     </script>
