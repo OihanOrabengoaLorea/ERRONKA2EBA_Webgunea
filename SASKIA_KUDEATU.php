@@ -24,9 +24,9 @@ switch ($action) {
             $stmt = $pdo->prepare("SELECT stock, izena FROM produktuak WHERE id = ?");
             $stmt->execute([$id]);
             $product = $stmt->fetch();
-            
+
             $current_qty = isset($_SESSION['saskia'][$id]) ? $_SESSION['saskia'][$id] : 0;
-            
+
             if ($product && $product['stock'] > $current_qty) {
                 $_SESSION['saskia'][$id] = $current_qty + 1;
             } else {
@@ -46,7 +46,7 @@ switch ($action) {
                     window.parent.updateCartBadge();
                 }
             </script>";
-            exit(); 
+            exit();
         }
         break;
 
@@ -55,33 +55,33 @@ switch ($action) {
             unset($_SESSION['saskia'][$id]);
         }
         break;
-        
+
     case 'update':
-         $qty = isset($_GET['qty']) ? intval($_GET['qty']) : 1;
-         if ($id > 0) {
-             if ($qty <= 0) {
-                 unset($_SESSION['saskia'][$id]);
-             } else {
-                 $_SESSION['saskia'][$id] = $qty;
-             }
-         }
-         break;
+        $qty = isset($_GET['qty']) ? intval($_GET['qty']) : 1;
+        if ($id > 0) {
+            if ($qty <= 0) {
+                unset($_SESSION['saskia'][$id]);
+            } else {
+                $_SESSION['saskia'][$id] = $qty;
+            }
+        }
+        break;
 
     case 'empty':
         $_SESSION['saskia'] = [];
         break;
-        
+
     case 'buy_now':
         if ($id > 0) {
             $stmt = $pdo->prepare("SELECT stock, izena FROM produktuak WHERE id = ?");
             $stmt->execute([$id]);
             $product = $stmt->fetch();
-            
+
             $current_qty = isset($_SESSION['saskia'][$id]) ? $_SESSION['saskia'][$id] : 0;
-            
+
             if ($product && $product['stock'] > $current_qty) {
                 $_SESSION['saskia'][$id] = $current_qty + 1;
-                $redirect_url = 'SASKIA.php'; 
+                $redirect_url = 'SASKIA.php';
             } else {
                 $product_name = $product ? $product['izena'] : 'produktu hau';
                 $msg = "Ezin da erosi. Ez dago nahikoa stock $product_name-(e)rako.";
@@ -102,16 +102,17 @@ switch ($action) {
         }
 
         try {
-    
+
             $pdo->beginTransaction();
-            
+
             $ids = array_map('intval', array_keys($cart_items));
-            if (empty($ids)) throw new Exception("Saskia hutsik dago.");
-            
-            $in  = str_repeat('?,', count($ids) - 1) . '?';
+            if (empty($ids))
+                throw new Exception("Saskia hutsik dago.");
+
+            $in = str_repeat('?,', count($ids) - 1) . '?';
             $stmt = $pdo->prepare("SELECT id, izena, prezioa, stock FROM produktuak WHERE id IN ($in)");
             $stmt->execute($ids);
-            $products = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+            $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $totala = 0;
             $productMap = [];
 
@@ -120,15 +121,16 @@ switch ($action) {
             }
 
             foreach ($cart_items as $pid => $qty) {
-                if (!isset($productMap[$pid])) continue;
-                
+                if (!isset($productMap[$pid]))
+                    continue;
+
                 $product = $productMap[$pid];
                 
                 
                 if ($product['stock'] < $qty) {
                     throw new Exception("Ez dago nahikoa stock produktu honetarako: " . $product['izena'] . " (Eskuragarri: " . $product['stock'] . ")");
                 }
-                
+
                 $totala += $product['prezioa'] * $qty;
             }
 
@@ -141,22 +143,23 @@ switch ($action) {
             $stmtFaktura->execute([$id_bezeroa, $id_hornitzailea, $data, $totala]);
             $fakturaId = $pdo->lastInsertId();
 
-    
+
             $stmtErosketa = $pdo->prepare("INSERT INTO erosketa (id_bezeroa, id_hornitzailea, id_produktua, id_faktura, totala, data, zenbatekoa) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $stmtStock = $pdo->prepare("UPDATE produktuak SET stock = stock - ? WHERE id = ?");
 
             foreach ($cart_items as $pid => $qty) {
-                if (!isset($productMap[$pid])) continue;
+                if (!isset($productMap[$pid]))
+                    continue;
                 $product = $productMap[$pid];
                 $line_total = $product['prezioa'] * $qty;
 
 
                 $stmtErosketa->execute([
-                    $id_bezeroa, 
-                    $id_hornitzailea, 
-                    $pid, 
-                    $fakturaId, 
-                    $line_total, 
+                    $id_bezeroa,
+                    $id_hornitzailea,
+                    $pid,
+                    $fakturaId,
+                    $line_total,
                     $data,
                     $qty
                 ]);
@@ -165,10 +168,10 @@ switch ($action) {
             }
 
             $pdo->commit();
-            
-  
+
+
             $_SESSION['saskia'] = [];
-            
+
             echo "<script>
                 alert('Erosketa ondo burutu da! Faktura ID: $fakturaId');
                 window.location.href = 'KATALOGOA.php';
@@ -185,7 +188,7 @@ switch ($action) {
             exit();
         }
         break;
-    }
+}
 header("Location: " . $redirect_url);
 exit();
 ?>

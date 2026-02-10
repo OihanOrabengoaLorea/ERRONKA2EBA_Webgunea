@@ -3,17 +3,19 @@ include 'INIT.php';
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <title>Azken berriak</title>
+    <title>EJBE - Azken berriak</title>
     <link rel="stylesheet" href="CSS_Erronka.css" />
-    <link rel="icon" type="image/png" href="ARGAZKIAK/EJBE-BG.png"/>
+    <link rel="icon" type="image/png" href="ARGAZKIAK/EJBE-BG.png" />
 </head>
+
 <body>
     <?php include 'HEADER.php'; ?>
     <div class="main">
         <h1>AZKEN BERRIAK</h1>
-        
+
         <?php
         $bilaketa = isset($_GET["bilaketa"]) ? $_GET["bilaketa"] : "";
         $ordena = isset($_GET["ordena"]) ? $_GET["ordena"] : "auto";
@@ -23,16 +25,20 @@ include 'INIT.php';
             <form action="AZKEN BERRIAK.php" method="GET" class="katalogo">
                 <div class="bilaketa form-group" style="margin-bottom:0">
                     <label for="bilaketa">Bilatu izenburua</label>
-                    <input type="text" id="bilaketa" name="bilaketa" value="<?= htmlspecialchars($bilaketa) ?>" placeholder="Bilatu berriak..." class="filter-input">
+                    <input type="text" id="bilaketa" name="bilaketa" value="<?= htmlspecialchars($bilaketa) ?>"
+                        placeholder="Bilatu berriak..." class="filter-input">
                 </div>
 
                 <div class="aukera form-group" style="margin-bottom:0">
                     <label for="ordena">Ordenatu</label>
                     <select id="ordena" name="ordena" class="filter-select">
                         <option value="auto" <?= $ordena == "auto" ? "selected" : "" ?>>Automatikoa</option>
-                        <option value="data_desc" <?= $ordena == "data_desc" ? "selected" : "" ?>>Berrienak lehenengo</option>
-                        <option value="data_asc" <?= $ordena == "data_asc" ? "selected" : "" ?>>Zaharrenak lehenengo</option>
-                        <option value="garrantzia" <?= $ordena == "garrantzia" ? "selected" : "" ?>>Garantzia (Altua -> Baxua)</option>
+                        <option value="data_desc" <?= $ordena == "data_desc" ? "selected" : "" ?>>Berrienak lehenengo
+                        </option>
+                        <option value="data_asc" <?= $ordena == "data_asc" ? "selected" : "" ?>>Zaharrenak lehenengo
+                        </option>
+                        <option value="garrantzia" <?= $ordena == "garrantzia" ? "selected" : "" ?>>Garantzia (Altua ->
+                            Baxua)</option>
                     </select>
                 </div>
 
@@ -65,8 +71,8 @@ include 'INIT.php';
                         $sql .= " ORDER BY id DESC";
                         break;
                 }
-                
-                $stmt = $pdo->prepare($sql); 
+
+                $stmt = $pdo->prepare($sql);
                 $stmt->execute($params);
                 $news_items = $stmt->fetchAll();
 
@@ -77,7 +83,8 @@ include 'INIT.php';
                         <div class="news-card">
                             <div class="news-header">
                                 <span class="news-date"><?php echo htmlspecialchars($news['berria_data']); ?></span>
-                                <span class="priority-badge <?php echo $priorityClass; ?>"><?php echo htmlspecialchars($news['garrantzi_maila']); ?></span>
+                                <span
+                                    class="priority-badge <?php echo $priorityClass; ?>"><?php echo htmlspecialchars($news['garrantzi_maila']); ?></span>
                             </div>
                             <h3 class="news-title clickable-title" 
                                 onclick="openNewsModal(this)"
@@ -90,7 +97,8 @@ include 'INIT.php';
                                 <?php echo htmlspecialchars($news['berria_izena']); ?>
                             </h3>
                             <div class="news-content">
-                                <p><?php echo nl2br(htmlspecialchars(substr($news['berria'], 0, 150))) . (strlen($news['berria']) > 150 ? '...' : ''); ?></p>
+                                <p><?php echo nl2br(htmlspecialchars(substr($news['berria'], 0, 150))) . (strlen($news['berria']) > 150 ? '...' : ''); ?>
+                                </p>
                             </div>
                         </div>
                         <?php
@@ -123,20 +131,20 @@ include 'INIT.php';
     </div>
 
     <script>
-    function openNewsModal(element) {
-        const title = element.getAttribute('data-title');
-        const date = element.getAttribute('data-date');
-        const priority = element.getAttribute('data-priority');
-        const priorityClass = element.getAttribute('data-priority-class');
-        const content = element.getAttribute('data-content');
-        const image = element.getAttribute('data-image');
+        function openNewsModal(element) {
+            const title = element.getAttribute('data-title');
+            const date = element.getAttribute('data-date');
+            const priority = element.getAttribute('data-priority');
+            const priorityClass = element.getAttribute('data-priority-class');
+            const content = element.getAttribute('data-content');
+            const image = element.getAttribute('data-image');
 
-        document.getElementById('modalTitle').innerText = title;
-        document.getElementById('modalDate').innerText = date;
-        const priorityBadge = document.getElementById('modalPriority');
-        priorityBadge.innerText = priority;
-        priorityBadge.className = 'priority-badge ' + priorityClass;
-        document.getElementById('modalFullContent').innerHTML = content.replace(/\n/g, '<br>');
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDate').innerText = date;
+            const priorityBadge = document.getElementById('modalPriority');
+            priorityBadge.innerText = priority;
+            priorityBadge.className = 'priority-badge ' + priorityClass;
+            document.getElementById('modalFullContent').innerHTML = content.replace(/\n/g, '<br>');
 
         const imageContainer = document.getElementById('modalImageContainer');
         imageContainer.innerHTML = '';
@@ -164,9 +172,9 @@ include 'INIT.php';
         if (event.target == modal) {
             closeNewsModal();
         }
-    }
     </script>
 
     <?php include 'FOOTER.php'; ?>
 </body>
+
 </html>

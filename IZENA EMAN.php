@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="eu">
 <head>
     <meta charset="utf-8">
-    <title>Erregistratu</title>
+    <title>EJBE - Erregistratu</title>
     <link rel="stylesheet" href="CSS_Erronka.css" />
     <link rel="icon" type="image/png" href="ARGAZKIAK/EJBE-BG.png"/>
     <style>

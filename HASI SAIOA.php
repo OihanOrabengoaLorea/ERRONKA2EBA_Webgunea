@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'INIT.php';
 
 if (isset($_SESSION['erabiltzailea'])) {
@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($hornitzailea) {
                     if ($hornitzailea['pasahitza'] === $pasahitza) {
 
-                         $_SESSION['erabiltzailea'] = [
+                        $_SESSION['erabiltzailea'] = [
                             'id' => $hornitzailea['id'],
                             'izena' => $hornitzailea['izena'],
                             'kontaktu_izena' => $hornitzailea['kontaktu_izena'],
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         header('Location: SARRERA.php');
                         exit();
                     } else {
-                         $errorea = 'Pasahitza okerra.';
+                        $errorea = 'Pasahitza okerra.';
                     }
                 } else {
                     $errorea = 'Ez da aurkitu email hori duen erabiltzailerik.';
@@ -69,12 +69,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Hasi saioa</title>
+    <title>EJBE - Hasi saioa</title>
     <link rel="stylesheet" href="CSS_Erronka.css" />
-    <link rel="icon" type="image/png" href="ARGAZKIAK/EJBE-BG.png"/>
+    <link rel="icon" type="image/png" href="ARGAZKIAK/EJBE-BG.png" />
 </head>
+
 <body>
     <?php include 'HEADER.php'; ?>
     <main>
@@ -88,15 +90,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form method="post" action="">
                 <div class="form-group">
                     <label for="posta_elektronikoa">Posta elektronikoa</label>
-                    <input type="email" id="posta_elektronikoa" name="posta_elektronikoa" 
-                           placeholder="example@gmail.com" required>
+                    <input type="email" id="posta_elektronikoa" name="posta_elektronikoa"
+                        placeholder="example@gmail.com" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="pasahitza">Pasahitza</label>
                     <input type="password" name="pasahitza" id="pasahitza" required>
                 </div>
-                
+
                 <div class="form-buttons">
                     <button type="reset">Ezabatu</button>
                     <button type="submit">Sartu</button>
@@ -110,4 +112,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </main>
     <?php include 'FOOTER.php'; ?>
 </body>
+
 </html>

@@ -6,22 +6,22 @@
             <a href="AZKEN BERRIAK.php">BERRIAK</a>
             <a href="KATALOGOA.php">KATALOGOA</a>
             <a href="FORMULARIOA.php">FORMULARIOA</a>
-            
-            <?php 
+
+            <?php
             if (isset($_GET['action']) && $_GET['action'] == 'itxi') {
                 session_destroy();
                 header('Location: SARRERA.php');
                 exit();
             }
-            
-            if (isset($_SESSION['erabiltzailea'])): 
+
+            if (isset($_SESSION['erabiltzailea'])):
                 $cart_count = 0;
                 if (isset($_SESSION['saskia'])) {
                     $cart_count = array_sum($_SESSION['saskia']);
                 }
-            ?>
+                ?>
                 <a href="SASKIA.php" class="cart-link" style="text-decoration: none; color: black;">
-                   <img src="ARGAZKIAK/Cesta.png" width="24px" height="24px" alt="Saskia"/>
+                    <img src="ARGAZKIAK/Cesta.png" width="24px" height="24px" alt="Saskia" />
                     <?php if ($cart_count > 0): ?>
                         <span class="cart-badge" id="cart-count"><?php echo $cart_count; ?></span>
                     <?php endif; ?>
