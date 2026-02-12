@@ -73,7 +73,6 @@ switch ($action) {
 
     case 'buy_now':
         if ($id > 0) {
-            // HOBEKUNTZA: Produktua jada saskian badago, ez gehitu unitate gehiago
             if (!isset($_SESSION['saskia'][$id])) {
                 $stmt = $pdo->prepare("SELECT stock, izena FROM produktuak WHERE id = ?");
                 $stmt->execute([$id]);
@@ -86,7 +85,6 @@ switch ($action) {
                     exit();
                 }
             }
-            // Zuzenean saskiara bidali
             header("Location: SASKIA.php");
             exit();
         }
@@ -136,15 +134,12 @@ switch ($action) {
                 if (!isset($productMap[$pid])) continue;
                 $line_total = $productMap[$pid]['prezioa'] * $qty;
 
-                // 1. Erosketa txertatu
                 $stmtErosketa->execute([$id_bezeroa, $id_hornitzailea, $pid, $line_total, $data, $qty]);
                 $erosketaId = $pdo->lastInsertId();
 
-                // 2. Faktura txertatu
                 $stmtFaktura->execute([$id_bezeroa, $id_hornitzailea, $pid, $erosketaId, $data, $totala, $qty]);
-                $lastFakturaId = $pdo->lastInsertId(); // Gordetako IDa alert-erako
+                $lastFakturaId = $pdo->lastInsertId(); 
 
-                // 3. Stock eguneratu
                 $stmtStock->execute([$qty, $pid]);
             }
 

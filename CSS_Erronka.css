@@ -496,7 +496,6 @@ footer {
   max-width: 150px;
   height: auto;
   filter: brightness(0) invert(1);
-  /* Make logo white for dark background */
 }
 
 .footer-bottom {

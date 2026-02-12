@@ -28,10 +28,10 @@ if ($user) {
         $izena = $user['izena'];
         $abizena = $user['abizena'];
         $email = $user['email'];
-        
+
     } else {
 
-        $enpresa_izena = $user['izena']; // We stored company name in 'izena'
+        $enpresa_izena = $user['izena'];
         $harremanetarako = $user['kontaktu_izena'];
         $email = $user['email'];
         $telefonoa = $user['telefonoa'];
